@@ -191,4 +191,13 @@ typedef union {
     double flat[9];
 } RotationMatrixd;
 
+/**
+ * @brief 位姿矩阵
+ * @param data 4*4矩阵
+ */
+typedef struct {
+    double data[4][4];
+} Pose;
+
+
 #endif // _CMATHUTILS_DEFINE_H_
