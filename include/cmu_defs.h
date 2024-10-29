@@ -29,6 +29,10 @@
 #define D2R(x)      ((x) * 1.7453292519943295769e-2)
 #define R2D(x)      ((x) * 5.7295779513082320877e+1)
 
+#define WGS84_A      (6378137.0)
+#define WGS84_B      (6356752.314245)
+#define WGS84_F      (1.0 / 298.257223563)
+
 #define EPSILON         (1e-6)
 
 typedef int Status;
