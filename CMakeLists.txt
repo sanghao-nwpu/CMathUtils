@@ -18,3 +18,7 @@ target_link_libraries(test_cmu_matrix PRIVATE CMathUtils)
 # 添加可执行文件
 add_executable(test_cmu_rotation demo/test_cmu_rotation.c)
 target_link_libraries(test_cmu_rotation PRIVATE CMathUtils)
+
+# 添加可执行文件
+add_executable(test_cmu_earth demo/test_cmu_earth.c)
+target_link_libraries(test_cmu_earth PRIVATE CMathUtils)

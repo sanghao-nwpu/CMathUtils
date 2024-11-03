@@ -34,6 +34,8 @@ RotationMatrixd EulerToRotMat(const EulerAngled *euler) {
  * @brief 将旋转矩阵转换为欧拉角  
  * @param R 旋转矩阵结构体指针
  * @return EulerAngled 欧拉角
+ * @note 这里的欧拉角顺序为roll-pitch-yaw
+ * @note 在万向锁情况下，只能计算roll和pitch的和或差，此时定义roll为0
  */
 EulerAngled RotMatToEuler(const RotationMatrixd *R) {
     EulerAngled euler;
@@ -55,7 +57,7 @@ EulerAngled RotMatToEuler(const RotationMatrixd *R) {
  * @param aa 角轴结构体指针
  * @return RotationMatrixd 旋转矩阵
  */
-RotationMatrixd AngleAxisToMat(const AngleAxisd *aa) {
+RotationMatrixd AngleAxisToRotMat(const AngleAxisd *aa) {
     RotationMatrixd R;
     double angle = aa->angle;
     double x = aa->axis[0];
@@ -85,20 +87,14 @@ RotationMatrixd AngleAxisToMat(const AngleAxisd *aa) {
  * @brief 将旋转矩阵转换为角轴 
  * @param R 旋转矩阵结构体指针
  * @return AngleAxisd 角轴
+ * @note 通过quat作为中间量来计算
  */
 AngleAxisd RotMatToAngleAxis(const RotationMatrixd *R) {
     AngleAxisd aa;
-    double trace = R->data[0][0] + R->data[1][1] + R->data[2][2];
-    if (trace > 0) {
-        double s = sqrt(trace + 1.0) * 2;
-        aa.axis[0] = (R->data[2][1] - R->data[1][2]) / s; // x
-        aa.axis[1] = (R->data[0][2] - R->data[2][0]) / s; // y
-        aa.axis[2] = (R->data[1][0] - R->data[0][1]) / s; // z
-        aa.angle = acos(trace / 3.0);
-    } else {
-        // 处理角轴计算
-        // 这部分省略，取决于具体需要
-    }
+    Quaterniod quat;
+
+    quat = RotMatToQuat(R);
+    aa = QuatToAngleAxis(&quat);
 
     return aa;
 }
@@ -171,16 +167,13 @@ Quaterniod RotMatToQuat(const RotationMatrixd *R) {
  */
 Quaterniod EulerToQuat(const EulerAngled *euler) {
     Quaterniod q;
-    double halfRoll = euler->roll * 0.5;
-    double halfPitch = euler->pitch * 0.5;
-    double halfYaw = euler->yaw * 0.5;
 
-    double cr = cos(halfRoll);
-    double sr = sin(halfRoll);
-    double cp = cos(halfPitch);
-    double sp = sin(halfPitch);
-    double cy = cos(halfYaw);
-    double sy = sin(halfYaw);
+    double cr = cos(euler->roll * 0.5);
+    double sr = sin(euler->roll * 0.5);
+    double cp = cos(euler->pitch * 0.5);
+    double sp = sin(euler->pitch * 0.5);
+    double cy = cos(euler->yaw * 0.5);
+    double sy = sin(euler->yaw * 0.5);
 
     q.w = cr * cp * cy + sr * sp * sy;
     q.x = sr * cp * cy - cr * sp * sy;
@@ -259,14 +252,13 @@ AngleAxisd QuatToAngleAxis(const Quaterniod *q) {
  * @brief 将欧拉角转换为角轴 
  * @param euler 欧拉角结构体指针
  * @return AngleAxisd 角轴
+ * @note 通过旋转矩阵作为中间量来计算
  */
 AngleAxisd EulerToAngleAxis(const EulerAngled *euler) {
     AngleAxisd aa;
-    // 这里只计算第一个角的角轴，具体实现需要依据实际需要进行扩展
-    aa.angle = euler->roll; // 示例仅用 roll 值
-    aa.axis[0] = 1.0; // 示例值
-    aa.axis[1] = 0.0;
-    aa.axis[2] = 0.0;
+    RotationMatrixd R = { 0 };
+    R = EulerToRotMat(euler);
+    aa = RotMatToAngleAxis(&R);
 
     return aa;
 }
@@ -275,43 +267,17 @@ AngleAxisd EulerToAngleAxis(const EulerAngled *euler) {
  * @brief 将角轴转换为欧拉角 
  * @param aa 角轴结构体指针
  * @return EulerAngled 欧拉角
+ * @note 通过旋转矩阵作为中间量来计算
  */
 EulerAngled AngleAxisToEuler(const AngleAxisd *aa) {
     // 这里需要一个根据实际角轴计算欧拉角的实现
     // 示例返回值
     EulerAngled euler;
-    euler.roll = aa->angle; // 只是将角赋值给 roll
-    euler.pitch = 0; // 实际上需要更多的计算
-    euler.yaw = 0; // 实际上需要更多的计算
+    RotationMatrixd R = { 0 };
+    R = AngleAxisToRotMat(aa);
+    euler = RotMatToEuler(&R);
     
     return euler;
-}
-
-/** 
- * @brief 计算欧拉角的逆
- * @param euler 欧拉角结构体指针
- * @return EulerAngled 逆欧拉角
- */
-EulerAngled InverseEuler(const EulerAngled *euler) {
-    EulerAngled inverse;
-    inverse.roll = -euler->roll;
-    inverse.pitch = -euler->pitch;
-    inverse.yaw = -euler->yaw;
-    return inverse;
-}
-
-/** 
- * @brief 计算角轴的逆
- * @param aa 角轴结构体指针
- * @return AngleAxisd 逆角轴
- */
-AngleAxisd InverseAngleAxis(const AngleAxisd *aa) {
-    AngleAxisd inverse;
-    inverse.angle = -aa->angle;
-    inverse.axis[0] = -aa->axis[0];
-    inverse.axis[1] = -aa->axis[1];
-    inverse.axis[2] = -aa->axis[2];
-    return inverse;
 }
 
 /** 

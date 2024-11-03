@@ -15,6 +15,7 @@
 #include "cmu_earth.h"
 #include "cmu_matrix.h"
 #include <math.h>
+#include <stdio.h>
 
 /**
  * @brief 计算地球上某点的重力加速度
@@ -49,7 +50,7 @@ double calculate_meridian_radius(const double lat)
     double squre_sin_lat = 0.0;
     squre_sin_lat = sin(lat);
     squre_sin_lat *= squre_sin_lat;
-    meridian_radius = WGS84_RA * (1.0 - WGS84_E1) / pow(1 - WGS84_E1 * squre_sin_lat, 1.5);
+    meridian_radius = WGS84_RA * (1.0 - WGS84_SQURE_E1) / pow(1 - WGS84_SQURE_E1 * squre_sin_lat, 1.5);
     return meridian_radius;
 }
 
@@ -62,7 +63,7 @@ double calculate_prime_vertical_radius(const double lat)
 {
     double prime_vertical_radius = 0.0;
     double sinlat = sin(lat);
-    prime_vertical_radius = WGS84_RA / sqrt(1.0 - WGS84_E1 * sinlat * sinlat);
+    prime_vertical_radius = WGS84_RA / sqrt(1.0 - WGS84_SQURE_E1 * sinlat * sinlat);
     return prime_vertical_radius;
 }
 
@@ -79,15 +80,17 @@ Matrix3D calculate_enu_to_ecef_matrix(const Vector3D *blh)
     double sinlon = sin(blh->y);
     double coslon = cos(blh->y);
 
-    enu_to_ecef_matrix.data[0][0] = -sinlat * coslon;
-    enu_to_ecef_matrix.data[0][1] = -sinlon;
-    enu_to_ecef_matrix.data[0][2] = -coslat * coslon;
-    enu_to_ecef_matrix.data[1][0] = -sinlat * sinlon;
-    enu_to_ecef_matrix.data[1][1] = coslon;
-    enu_to_ecef_matrix.data[1][2] = -coslat * sinlon;
-    enu_to_ecef_matrix.data[2][0] = coslat;
-    enu_to_ecef_matrix.data[2][1] = 0;
-    enu_to_ecef_matrix.data[2][2] = -sinlat;
+    enu_to_ecef_matrix.data[0][0] = -sinlon;
+    enu_to_ecef_matrix.data[0][1] = -coslon * sinlat;
+    enu_to_ecef_matrix.data[0][2] = coslat * coslon;
+
+    enu_to_ecef_matrix.data[1][0] = coslon; 
+    enu_to_ecef_matrix.data[1][1] = -sinlon * sinlat;
+    enu_to_ecef_matrix.data[1][2] = coslat * sinlon;
+
+    enu_to_ecef_matrix.data[2][0] = 0.0;
+    enu_to_ecef_matrix.data[2][1] = coslat;
+    enu_to_ecef_matrix.data[2][2] = sinlat;
 
     return enu_to_ecef_matrix;
 }
@@ -106,15 +109,15 @@ Vector3D ecef_to_blh(const Vector3D *ecef)
     double h = 0.0, h2 = 0.0;
 
     // 初始状态
-    lat = atan(ecef->y / (p * (1.0 - WGS84_E1)));
-    lon = 2.0 * atan2(ecef->y, ecef->x + p);
+    lat = atan2(ecef->z , (p * (1.0 - WGS84_SQURE_E1)));
+    lon = atan2(ecef->y, ecef->x);
 
     while (TRUE) {
         h2 = h;
         rn = calculate_prime_vertical_radius(lat);
         h = p / cos(lat) - rn;
-        lat = atan(ecef->y / (p * (1.0 - WGS84_E1 * rn / (rn + h))));
-        
+        // lat = atan(ecef->z / (p * (1.0 - WGS84_SQURE_E1 * rn / (rn + h))));
+        lat = atan2(ecef->z + rn * WGS84_SQURE_E1 * sin(lat), p);
         if (fabs(h - h2) <= 1.0e-4) {
             break; // 当条件满足时退出循环
         }
@@ -147,7 +150,7 @@ Vector3D blh_to_ecef(const Vector3D *blh)
     rnh = rn + blh->z;
     ecef.x = rnh * coslat * coslon;
     ecef.y = rnh * coslat * sinlon;
-    ecef.z = (rnh - rn * WGS84_E1) * sinlat;
+    ecef.z = (rnh - rn * WGS84_SQURE_E1) * sinlat;
     return ecef;
 }
 
@@ -194,10 +197,10 @@ Vector3D enu_to_blh(const Vector3D *ref_blh, const Vector3D *enu)
 
     ref_ecef = blh_to_ecef(ref_blh);
     enu_to_ecef_matrix = calculate_enu_to_ecef_matrix(ref_blh);
-    ecef_to_enu_matrix = MatTranspose3D(&enu_to_ecef_matrix);
 
     delta_ecef = MatMulVec3D(&enu_to_ecef_matrix, enu);
     ecef = VecAdd3D(&ref_ecef, &delta_ecef);
+
     blh = ecef_to_blh(&ecef);
 
     return blh;

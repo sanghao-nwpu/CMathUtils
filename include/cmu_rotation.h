@@ -39,7 +39,7 @@ EulerAngled RotMatToEuler(const RotationMatrixd *R);
  * @param aa 角轴结构体指针
  * @return RotationMatrixd 旋转矩阵
  */
-RotationMatrixd AngleAxisToMat(const AngleAxisd *aa);
+RotationMatrixd AngleAxisToRotMat(const AngleAxisd *aa);
 
 /** 
  * @brief 将旋转矩阵转换为角轴 
@@ -106,22 +106,8 @@ EulerAngled AngleAxisToEuler(const AngleAxisd *aa);
 
 
 /*******************************************************************************
- * @subsection 旋转表示的逆运算
+ * @subsection 旋转的逆运算
 *******************************************************************************/
-/**
- * @brief 计算欧拉角的逆
- * @param euler 欧拉角结构体指针
- * @return EulerAngled 逆欧拉角
- */
-EulerAngled InverseEuler(const EulerAngled *euler);
-
-/**
- * @brief 计算角轴的逆
- * @param aa 角轴结构体指针
- * @return AngleAxisd 逆角轴
- */
-AngleAxisd InverseAngleAxis(const AngleAxisd *aa);
-
 /**
  * @brief 计算四元数的逆
  * @param q 四元数结构体指针

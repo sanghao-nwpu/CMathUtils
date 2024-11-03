@@ -123,13 +123,13 @@ Matrix4D MatAdd4D(const Matrix4D *A, const Matrix4D *B) {
 
 
 /*******************************************************************************
- * @subsection 矩阵与矩阵相减
+ * @subsection 矩阵减法
 *******************************************************************************/
 /**
  * @brief 矩阵减法(2维)
  * @param A 指向第一个矩阵的指针
  * @param B 指向第二个矩阵的指针
- * @return 矩阵的和
+ * @return 矩阵的差
  */
 Matrix2D MatSub2D(const Matrix2D *A, const Matrix2D *B) {
     Matrix2D result;
@@ -145,7 +145,7 @@ Matrix2D MatSub2D(const Matrix2D *A, const Matrix2D *B) {
  * @brief 矩阵减法(3维)
  * @param A 指向第一个矩阵的指针
  * @param B 指向第二个矩阵的指针
- * @return 矩阵的和
+ * @return 矩阵的差
  */
 Matrix3D MatSub3D(const Matrix3D *A, const Matrix3D *B) {
     Matrix3D result;
@@ -161,7 +161,7 @@ Matrix3D MatSub3D(const Matrix3D *A, const Matrix3D *B) {
  * @brief 矩阵减法(4维)
  * @param A 指向第一个矩阵的指针
  * @param B 指向第二个矩阵的指针
- * @return 矩阵的和
+ * @return 矩阵的差
  */
 Matrix4D MatSub4D(const Matrix4D *A, const Matrix4D *B) {
     Matrix4D result;
@@ -729,6 +729,10 @@ Vector4D VecSquare4D(const Vector4D *v) {
     return result;
 }
 
+
+/*******************************************************************************
+ * @subsection 向量按位取开方
+*******************************************************************************/
 /**
  * @brief 向量按位取开方(2维)
  * @param v 指向向量的指针
@@ -736,7 +740,7 @@ Vector4D VecSquare4D(const Vector4D *v) {
  */
 Vector2D VecSqrt2D(const Vector2D *v) {
     Vector2D result = { 0.0 };
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 2; i++)
     {
         result.data[i] = sqrt(v->data[i]);
     }
@@ -758,7 +762,7 @@ Vector3D VecSqrt3D(const Vector3D *v) {
 }
 
 /**
- * @brief 向量按位取开方(3维)
+ * @brief 向量按位取开方(4维)
  * @param v 指向向量的指针
  * @return 按位取开方后的向量
  */

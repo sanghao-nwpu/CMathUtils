@@ -19,7 +19,7 @@ void testRotation() {
     printf("RotMatToEuler: roll = %f, pitch = %f, yaw = %f\n", eulerBack.roll, eulerBack.pitch, eulerBack.yaw);
 
     // 测试角轴到旋转矩阵
-    RotationMatrixd R2 = AngleAxisToMat(&angle_axis);
+    RotationMatrixd R2 = AngleAxisToRotMat(&angle_axis);
     printf("AngleAxisToMat:\n");
     printf("[[%f, %f, %f], [%f, %f, %f], [%f, %f, %f]]\n",
            R2.data[0][0], R2.data[0][1], R2.data[0][2],
