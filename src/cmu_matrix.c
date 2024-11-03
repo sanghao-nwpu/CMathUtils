@@ -19,6 +19,58 @@
 #include "cmu_matrix.h"
 
 /*******************************************************************************
+ * @subsection 矩阵转置
+*******************************************************************************/
+/**
+ * @brief 矩阵转置(2维)
+ * @param A 指向矩阵的指针
+ * @return 转置后的矩阵
+ */
+Matrix2D MatTranspose2D(const Matrix2D *A)
+{
+    Matrix2D result;
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 2; ++j) {
+            result.data[i][j] = A->data[j][i];
+        }
+    }
+    return result;
+}
+
+/**
+ * @brief 矩阵转置(3维)
+ * @param A 指向矩阵的指针
+ * @return 转置后的矩阵
+ */
+Matrix3D MatTranspose3D(const Matrix3D *A)
+{
+    Matrix3D result;
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            result.data[i][j] = A->data[j][i];
+        }
+    }
+    return result;
+}
+
+/**
+ * @brief 矩阵转置(4维)
+ * @param A 指向矩阵的指针
+ * @return 转置后的矩阵
+ */
+Matrix4D MatTranspose4D(const Matrix4D *A)
+{
+    Matrix4D result;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            result.data[i][j] = A->data[j][i];
+        }
+    }
+    return result;
+}
+
+
+/*******************************************************************************
  * @subsection 矩阵与矩阵相加
 *******************************************************************************/
 /**
@@ -64,6 +116,58 @@ Matrix4D MatAdd4D(const Matrix4D *A, const Matrix4D *B) {
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             result.data[i][j] = A->data[i][j] + B->data[i][j];
+        }
+    }
+    return result;
+}
+
+
+/*******************************************************************************
+ * @subsection 矩阵与矩阵相减
+*******************************************************************************/
+/**
+ * @brief 矩阵减法(2维)
+ * @param A 指向第一个矩阵的指针
+ * @param B 指向第二个矩阵的指针
+ * @return 矩阵的和
+ */
+Matrix2D MatSub2D(const Matrix2D *A, const Matrix2D *B) {
+    Matrix2D result;
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 2; ++j) {
+            result.data[i][j] = A->data[i][j] - B->data[i][j];
+        }
+    }
+    return result;
+}
+
+/**
+ * @brief 矩阵减法(3维)
+ * @param A 指向第一个矩阵的指针
+ * @param B 指向第二个矩阵的指针
+ * @return 矩阵的和
+ */
+Matrix3D MatSub3D(const Matrix3D *A, const Matrix3D *B) {
+    Matrix3D result;
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            result.data[i][j] = A->data[i][j] - B->data[i][j];
+        }
+    }
+    return result;
+}
+
+/**
+ * @brief 矩阵减法(4维)
+ * @param A 指向第一个矩阵的指针
+ * @param B 指向第二个矩阵的指针
+ * @return 矩阵的和
+ */
+Matrix4D MatSub4D(const Matrix4D *A, const Matrix4D *B) {
+    Matrix4D result;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            result.data[i][j] = A->data[i][j] - B->data[i][j];
         }
     }
     return result;
@@ -233,6 +337,108 @@ Vector4D MatMulVec4D(const Matrix4D *A, const Vector4D *v) {
         {
             result.data[i] += A->data[i][j] * v->data[j];
         }
+    }
+    return result;
+}
+
+/*******************************************************************************
+ * @subsection 向量加法
+*******************************************************************************/
+/**
+ * @brief 向量加法(2维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的和
+ */
+Vector2D VecAdd2D(const Vector2D *u, const Vector2D *v)
+{
+    Vector2D result = { 0 };
+    for (int i = 0; i < 2; i++)
+    {
+        result.data[i] = u->data[i] + v->data[i];
+    }
+    return result;
+}
+
+/**
+ * @brief 向量加法(3维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的和
+ */
+Vector3D VecAdd3D(const Vector3D *u, const Vector3D *v)
+{
+    Vector3D result = { 0 };
+    for (int i = 0; i < 3; i++)
+    {
+        result.data[i] = u->data[i] + v->data[i];
+    }
+    return result;
+}
+
+/**
+ * @brief 向量加法(4维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的和
+ */
+Vector4D VecAdd4D(const Vector4D *u, const Vector4D *v)
+{
+    Vector4D result = { 0 };
+    for (int i = 0; i < 4; i++)
+    {
+        result.data[i] = u->data[i] + v->data[i];
+    }
+    return result;
+}
+
+/*******************************************************************************
+ * @subsection 向量减法
+*******************************************************************************/
+/**
+ * @brief 向量减法(2维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的差
+ */
+Vector2D VecSub2D(const Vector2D *u, const Vector2D *v)
+{
+    Vector2D result = { 0 };
+    for (int i = 0; i < 2; i++)
+    {
+        result.data[i] = u->data[i] - v->data[i];
+    }
+    return result;
+}
+
+/**
+ * @brief 向量减法(3维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的差
+ */
+Vector3D VecSub3D(const Vector3D *u, const Vector3D *v)
+{
+    Vector3D result = { 0 };
+    for (int i = 0; i < 3; i++)
+    {
+        result.data[i] = u->data[i] - v->data[i];
+    }
+    return result;
+}
+
+/**
+ * @brief 向量减法(4维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的差
+ */
+Vector4D VecSub4D(const Vector4D *u, const Vector4D *v)
+{
+    Vector4D result = { 0 };
+    for (int i = 0; i < 4; i++)
+    {
+        result.data[i] = u->data[i] - v->data[i];
     }
     return result;
 }

@@ -20,6 +20,30 @@
 #include "cmu_defs.h"
 
 /*******************************************************************************
+ * @subsection 矩阵转置
+*******************************************************************************/
+/**
+ * @brief 矩阵转置(2维)
+ * @param A 指向矩阵的指针
+ * @return 转置后的矩阵
+ */
+Matrix2D MatTranspose2D(const Matrix2D *A);
+
+/**
+ * @brief 矩阵转置(3维)
+ * @param A 指向矩阵的指针
+ * @return 转置后的矩阵
+ */
+Matrix3D MatTranspose3D(const Matrix3D *A);
+
+/**
+ * @brief 矩阵转置(4维)
+ * @param A 指向矩阵的指针
+ * @return 转置后的矩阵
+ */
+Matrix4D MatTranspose4D(const Matrix4D *A);
+
+/*******************************************************************************
  * @subsection 矩阵与矩阵相加
 *******************************************************************************/
 /**
@@ -45,6 +69,34 @@ Matrix3D MatAdd3D(const Matrix3D *A, const Matrix3D *B);
  * @return 矩阵的和
  */
 Matrix4D MatAdd4D(const Matrix4D *A, const Matrix4D *B);
+
+
+/*******************************************************************************
+ * @subsection 矩阵与矩阵相减
+*******************************************************************************/
+/**
+ * @brief 矩阵减法(2维)
+ * @param A 指向第一个矩阵的指针
+ * @param B 指向第二个矩阵的指针
+ * @return 矩阵的差
+ */
+Matrix2D MatSub2D(const Matrix2D *A, const Matrix2D *B);
+
+/**
+ * @brief 矩阵减法(3维)
+ * @param A 指向第一个矩阵的指针
+ * @param B 指向第二个矩阵的指针
+ * @return 矩阵的差
+ */
+Matrix3D MatSub3D(const Matrix3D *A, const Matrix3D *B);
+
+/**
+ * @brief 矩阵减法(3维)
+ * @param A 指向第一个矩阵的指针
+ * @param B 指向第二个矩阵的指针
+ * @return 矩阵的差
+ */
+Matrix4D MatSub4D(const Matrix4D *A, const Matrix4D *B);
 
 
 /*******************************************************************************
@@ -129,6 +181,61 @@ Vector3D MatMulVec3D(const Matrix3D *A, const Vector3D *v);
  * @return 矩阵和向量的乘积
  */
 Vector4D MatMulVec4D(const Matrix4D *A, const Vector4D *v);
+
+
+/*******************************************************************************
+ * @subsection 向量加法
+*******************************************************************************/
+/**
+ * @brief 向量加法(2维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的和
+ */
+Vector2D VecAdd2D(const Vector2D *u, const Vector2D *v);
+
+/**
+ * @brief 向量加法(3维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的和
+ */
+Vector3D VecAdd3D(const Vector3D *u, const Vector3D *v);
+
+/**
+ * @brief 向量加法(4维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的和
+ */
+Vector4D VecAdd4D(const Vector4D *u, const Vector4D *v);
+
+/*******************************************************************************
+ * @subsection 向量减法
+*******************************************************************************/
+/**
+ * @brief 向量减法(2维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的差
+ */
+Vector2D VecSub2D(const Vector2D *u, const Vector2D *v);
+
+/**
+ * @brief 向量减法(3维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的差
+ */
+Vector3D VecSub3D(const Vector3D *u, const Vector3D *v);
+
+/**
+ * @brief 向量减法(4维)
+ * @param u 指向第一个向量的指针
+ * @param v 指向第二个向量的指针
+ * @return 向量的差
+ */
+Vector4D VecSub4D(const Vector4D *u, const Vector4D *v);
 
 
 /*******************************************************************************

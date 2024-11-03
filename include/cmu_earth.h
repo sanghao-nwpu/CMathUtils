@@ -29,17 +29,17 @@ double calculate_gravity(const Vector3D *blh);
 
 /**
  * @brief 计算子午圈半径
- * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
+ * @param lat 纬度坐标(latitude{rad})
  * @return 子午圈半径(m)
  */
-double calculate_meridian_radius(const Vector3D *blh);
+double calculate_meridian_radius(const double lat);
 
 /**
  * @brief 计算卯酉圈半径
- * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
+ * @param lat 纬度坐标(latitude{rad})
  * @return 卯酉圈半径(m)
  */
-double calculate_prime_vertical_radius(const Vector3D *blh);
+double calculate_prime_vertical_radius(const double lat);
 
 /**
  * @brief 计算东北天系(enu)到地心地固系(ecef)的转换矩阵
