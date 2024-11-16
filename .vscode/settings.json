@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "cmu_static_matrix.h": "c",
+        "stdlib.h": "c"
+    }
+}

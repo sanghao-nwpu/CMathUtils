@@ -53,6 +53,10 @@
 #define FALSE           (0)
 #endif
 
+#define CMU_STATUS_SUCCESS                  (0)
+#define CMU_STATUS_FAILURE                  (-1)
+#define CMU_ERROR_MATRIX_OPERATION_INVALID  (-2)
+
 typedef int Status;
 
 /**
@@ -141,6 +145,29 @@ typedef struct {
     double data[4][4];
 } Matrix4D;
 
+/**
+ * @brief 动态向量数据结构(结构体)
+ * @param rows 矩阵的行数
+ * @param cols 矩阵的列数
+ * @param data 二维数组，用于存储矩阵数据
+ * @note rows为0表示矩阵并未初始化，data指针不可用
+ */
+typedef struct {
+    int rows;
+    int cols;
+    double** data;
+} MatrixXD;
+
+/**
+ * @brief 动态向量数据结构(结构体)
+ * @param size 向量的大小
+ * @param data 一维数组，用于存储向量数据
+ * @note size为0表示内存并未初始化，data指针不可用
+ */
+typedef struct {
+    int size;
+    double* data;
+} VectorXD;
 
 /*******************************************************************************
  * @subsection 旋转的四种定义：欧拉角、角轴、四元数、旋转矩阵

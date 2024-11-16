@@ -13,7 +13,7 @@
  */
 
 #include "cmu_earth.h"
-#include "cmu_matrix.h"
+#include "cmu_static_matrix.h"
 #include <math.h>
 #include <stdio.h>
 
@@ -172,10 +172,10 @@ Vector3D blh_to_enu(const Vector3D *ref_blh, const Vector3D *blh)
     ref_ecef = blh_to_ecef(ref_blh);
     ecef = blh_to_ecef(blh);
     enu_to_ecef_matrix = calculate_enu_to_ecef_matrix(ref_blh);
-    ecef_to_enu_matrix = MatTranspose3D(&enu_to_ecef_matrix);
+    ecef_to_enu_matrix = TransposeMat3D(&enu_to_ecef_matrix);
 
-    delta_ecef = VecSub3D(&ecef, &ref_ecef);
-    enu = MatMulVec3D(&ecef_to_enu_matrix, &delta_ecef);
+    delta_ecef = SubVec3D(&ecef, &ref_ecef);
+    enu = DotMatVec3D(&ecef_to_enu_matrix, &delta_ecef);
 
     return enu;
 }
@@ -198,8 +198,8 @@ Vector3D enu_to_blh(const Vector3D *ref_blh, const Vector3D *enu)
     ref_ecef = blh_to_ecef(ref_blh);
     enu_to_ecef_matrix = calculate_enu_to_ecef_matrix(ref_blh);
 
-    delta_ecef = MatMulVec3D(&enu_to_ecef_matrix, enu);
-    ecef = VecAdd3D(&ref_ecef, &delta_ecef);
+    delta_ecef = DotMatVec3D(&enu_to_ecef_matrix, enu);
+    ecef = AddVec3D(&ref_ecef, &delta_ecef);
 
     blh = ecef_to_blh(&ecef);
 

@@ -1,5 +1,5 @@
-#ifndef _CMATHUTILS_MATRIX_H_
-#define _CMATHUTILS_MATRIX_H_
+#ifndef _CMATHUTILS_STATUC_MATRIX_H_
+#define _CMATHUTILS_STATUC_MATRIX_H_
 
 /**
  * @file cmu_matrix.h
@@ -27,21 +27,21 @@
  * @param A 指向矩阵的指针
  * @return 转置后的矩阵
  */
-Matrix2D MatTranspose2D(const Matrix2D *A);
+Matrix2D TransposeMat2D(const Matrix2D *A);
 
 /**
  * @brief 矩阵转置(3维)
  * @param A 指向矩阵的指针
  * @return 转置后的矩阵
  */
-Matrix3D MatTranspose3D(const Matrix3D *A);
+Matrix3D TransposeMat3D(const Matrix3D *A);
 
 /**
  * @brief 矩阵转置(4维)
  * @param A 指向矩阵的指针
  * @return 转置后的矩阵
  */
-Matrix4D MatTranspose4D(const Matrix4D *A);
+Matrix4D TransposeMat4D(const Matrix4D *A);
 
 /*******************************************************************************
  * @subsection 矩阵加法
@@ -52,7 +52,7 @@ Matrix4D MatTranspose4D(const Matrix4D *A);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的和
  */
-Matrix2D MatAdd2D(const Matrix2D *A, const Matrix2D *B);
+Matrix2D AddMat2D(const Matrix2D *A, const Matrix2D *B);
 
 /**
  * @brief 矩阵加法(3维)
@@ -60,7 +60,7 @@ Matrix2D MatAdd2D(const Matrix2D *A, const Matrix2D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的和
  */
-Matrix3D MatAdd3D(const Matrix3D *A, const Matrix3D *B);
+Matrix3D AddMat3D(const Matrix3D *A, const Matrix3D *B);
 
 /**
  * @brief 矩阵加法(3维)
@@ -68,7 +68,7 @@ Matrix3D MatAdd3D(const Matrix3D *A, const Matrix3D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的和
  */
-Matrix4D MatAdd4D(const Matrix4D *A, const Matrix4D *B);
+Matrix4D AddMat4D(const Matrix4D *A, const Matrix4D *B);
 
 
 /*******************************************************************************
@@ -80,7 +80,7 @@ Matrix4D MatAdd4D(const Matrix4D *A, const Matrix4D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的差
  */
-Matrix2D MatSub2D(const Matrix2D *A, const Matrix2D *B);
+Matrix2D SubMat2D(const Matrix2D *A, const Matrix2D *B);
 
 /**
  * @brief 矩阵减法(3维)
@@ -88,7 +88,7 @@ Matrix2D MatSub2D(const Matrix2D *A, const Matrix2D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的差
  */
-Matrix3D MatSub3D(const Matrix3D *A, const Matrix3D *B);
+Matrix3D SubMat3D(const Matrix3D *A, const Matrix3D *B);
 
 /**
  * @brief 矩阵减法(4维)
@@ -96,7 +96,7 @@ Matrix3D MatSub3D(const Matrix3D *A, const Matrix3D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的差
  */
-Matrix4D MatSub4D(const Matrix4D *A, const Matrix4D *B);
+Matrix4D SubMat4D(const Matrix4D *A, const Matrix4D *B);
 
 
 /*******************************************************************************
@@ -108,7 +108,7 @@ Matrix4D MatSub4D(const Matrix4D *A, const Matrix4D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的乘积
  */
-Matrix2D MatMul2D(const Matrix2D *A, const Matrix2D *B);
+Matrix2D DotMat2D(const Matrix2D *A, const Matrix2D *B);
 
 /**
  * @brief 矩阵乘法(3维)
@@ -116,7 +116,7 @@ Matrix2D MatMul2D(const Matrix2D *A, const Matrix2D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的乘积
  */
-Matrix3D MatMul3D(const Matrix3D *A, const Matrix3D *B);
+Matrix3D DotMat3D(const Matrix3D *A, const Matrix3D *B);
 
 /**
  * @brief 矩阵乘法(4维)
@@ -124,7 +124,7 @@ Matrix3D MatMul3D(const Matrix3D *A, const Matrix3D *B);
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的乘积
  */
-Matrix4D MatMul4D(const Matrix4D *A, const Matrix4D *B);
+Matrix4D DotMat4D(const Matrix4D *A, const Matrix4D *B);
 
 
 /*******************************************************************************
@@ -136,7 +136,7 @@ Matrix4D MatMul4D(const Matrix4D *A, const Matrix4D *B);
  * @param scalar 要乘的标量
  * @return 标量和矩阵的乘积
  */
-Matrix2D ScalarMulMat2D(const double scalar, const Matrix2D *A);
+Matrix2D DotScalarMat2D(const double scalar, const Matrix2D *A);
 
 /**
  * @brief 标量与矩阵相乘(3维)
@@ -144,7 +144,7 @@ Matrix2D ScalarMulMat2D(const double scalar, const Matrix2D *A);
  * @param scalar 要乘的标量
  * @return 标量和矩阵的乘积
  */
-Matrix3D ScalarMulMat3D(const double scalar, const Matrix3D *A);
+Matrix3D DotScalarMat3D(const double scalar, const Matrix3D *A);
 
 /**
  * @brief 标量与矩阵相乘(4维)
@@ -152,7 +152,7 @@ Matrix3D ScalarMulMat3D(const double scalar, const Matrix3D *A);
  * @param scalar 要乘的标量
  * @return 标量和矩阵的乘积
  */
-Matrix4D ScalarMulMat4D(const double scalar, const Matrix4D *A);
+Matrix4D DotScalarMat4D(const double scalar, const Matrix4D *A);
 
 
 /*******************************************************************************
@@ -164,7 +164,7 @@ Matrix4D ScalarMulMat4D(const double scalar, const Matrix4D *A);
  * @param v 指向向量的指针
  * @return 矩阵和向量的乘积
  */
-Vector2D MatMulVec2D(const Matrix2D *A, const Vector2D *v);
+Vector2D DotMatVec2D(const Matrix2D *A, const Vector2D *v);
 
 /**
  * @brief 矩阵与向量相乘(3维)
@@ -172,7 +172,7 @@ Vector2D MatMulVec2D(const Matrix2D *A, const Vector2D *v);
  * @param v 指向向量的指针
  * @return 矩阵和向量的乘积
  */
-Vector3D MatMulVec3D(const Matrix3D *A, const Vector3D *v);
+Vector3D DotMatVec3D(const Matrix3D *A, const Vector3D *v);
 
 /**
  * @brief 矩阵与向量相乘(4维)
@@ -180,7 +180,7 @@ Vector3D MatMulVec3D(const Matrix3D *A, const Vector3D *v);
  * @param v 指向向量的指针
  * @return 矩阵和向量的乘积
  */
-Vector4D MatMulVec4D(const Matrix4D *A, const Vector4D *v);
+Vector4D DotMatVec4D(const Matrix4D *A, const Vector4D *v);
 
 
 /*******************************************************************************
@@ -192,7 +192,7 @@ Vector4D MatMulVec4D(const Matrix4D *A, const Vector4D *v);
  * @param v 指向第二个向量的指针
  * @return 向量的和
  */
-Vector2D VecAdd2D(const Vector2D *u, const Vector2D *v);
+Vector2D AddVec2D(const Vector2D *u, const Vector2D *v);
 
 /**
  * @brief 向量加法(3维)
@@ -200,7 +200,7 @@ Vector2D VecAdd2D(const Vector2D *u, const Vector2D *v);
  * @param v 指向第二个向量的指针
  * @return 向量的和
  */
-Vector3D VecAdd3D(const Vector3D *u, const Vector3D *v);
+Vector3D AddVec3D(const Vector3D *u, const Vector3D *v);
 
 /**
  * @brief 向量加法(4维)
@@ -208,7 +208,7 @@ Vector3D VecAdd3D(const Vector3D *u, const Vector3D *v);
  * @param v 指向第二个向量的指针
  * @return 向量的和
  */
-Vector4D VecAdd4D(const Vector4D *u, const Vector4D *v);
+Vector4D AddVec4D(const Vector4D *u, const Vector4D *v);
 
 /*******************************************************************************
  * @subsection 向量减法
@@ -219,7 +219,7 @@ Vector4D VecAdd4D(const Vector4D *u, const Vector4D *v);
  * @param v 指向第二个向量的指针
  * @return 向量的差
  */
-Vector2D VecSub2D(const Vector2D *u, const Vector2D *v);
+Vector2D SubVec2D(const Vector2D *u, const Vector2D *v);
 
 /**
  * @brief 向量减法(3维)
@@ -227,7 +227,7 @@ Vector2D VecSub2D(const Vector2D *u, const Vector2D *v);
  * @param v 指向第二个向量的指针
  * @return 向量的差
  */
-Vector3D VecSub3D(const Vector3D *u, const Vector3D *v);
+Vector3D SubVec3D(const Vector3D *u, const Vector3D *v);
 
 /**
  * @brief 向量减法(4维)
@@ -235,7 +235,7 @@ Vector3D VecSub3D(const Vector3D *u, const Vector3D *v);
  * @param v 指向第二个向量的指针
  * @return 向量的差
  */
-Vector4D VecSub4D(const Vector4D *u, const Vector4D *v);
+Vector4D SubVec4D(const Vector4D *u, const Vector4D *v);
 
 
 /*******************************************************************************
@@ -247,7 +247,7 @@ Vector4D VecSub4D(const Vector4D *u, const Vector4D *v);
  * @param scalar 要乘的标量
  * @return 向量数乘结果
  */
-Vector2D ScalarMulVec2D(const double scalar, const Vector2D *v);
+Vector2D DotScalarVec2D(const double scalar, const Vector2D *v);
 
 /**
  * @brief 向量数乘(3维)
@@ -255,7 +255,7 @@ Vector2D ScalarMulVec2D(const double scalar, const Vector2D *v);
  * @param scalar 要乘的标量
  * @return 向量数乘结果
  */
-Vector3D ScalarMulVec3D(const double scalar, const Vector3D *v);
+Vector3D DotScalarVec3D(const double scalar, const Vector3D *v);
 
 /**
  * @brief 向量数乘(4维)
@@ -263,7 +263,7 @@ Vector3D ScalarMulVec3D(const double scalar, const Vector3D *v);
  * @param scalar 要乘的标量
  * @return 向量数乘结果
  */
-Vector4D ScalarMulVec4D(const double scalar, const Vector4D *v);
+Vector4D DotScalarVec4D(const double scalar, const Vector4D *v);
 
 
 /*******************************************************************************
@@ -275,7 +275,7 @@ Vector4D ScalarMulVec4D(const double scalar, const Vector4D *v);
  * @param v 指向第二个向量的指针
  * @return 向量点乘结果
  */
-double VecDot2D(const Vector2D *u, const Vector2D *v);
+double DotVec2D(const Vector2D *u, const Vector2D *v);
 
 /**
  * @brief 向量点乘
@@ -283,7 +283,7 @@ double VecDot2D(const Vector2D *u, const Vector2D *v);
  * @param v 指向第二个向量的指针
  * @return 向量点乘结果
  */
-double VecDot3D(const Vector3D *u, const Vector3D *v);
+double DotVec3D(const Vector3D *u, const Vector3D *v);
 
 /**
  * @brief 向量点乘
@@ -291,7 +291,7 @@ double VecDot3D(const Vector3D *u, const Vector3D *v);
  * @param v 指向第二个向量的指针
  * @return 向量点乘结果
  */
-double VecDot4D(const Vector4D *u, const Vector4D *v);
+double DotVec4D(const Vector4D *u, const Vector4D *v);
 
 
 /*******************************************************************************
@@ -304,7 +304,7 @@ double VecDot4D(const Vector4D *u, const Vector4D *v);
  * @param v 指向第二个向量的指针
  * @return 向量叉乘结果
  */
-Vector3D VecCross3D(const Vector3D *u, const Vector3D *v);
+Vector3D CrossVec3D(const Vector3D *u, const Vector3D *v);
 
 
 /*******************************************************************************
@@ -315,14 +315,14 @@ Vector3D VecCross3D(const Vector3D *u, const Vector3D *v);
  * @param v 指向向量的指针
  * @return 该向量的反对称矩阵
  */
-Matrix3D VecToSkew3D(const Vector3D *v);
+Matrix3D SkewVecToMat3D(const Vector3D *v);
 
 /**
  * @brief 将3维反对称矩阵转换为向量
  * @param v 指向反对称矩阵的指针
  * @return 该反对称矩阵对应的向量
  */
-Vector3D SkewToVec3D(const Matrix3D *skew);
+Vector3D SkewMatToVec3D(const Matrix3D *skew);
 
 
 /*******************************************************************************
@@ -333,42 +333,42 @@ Vector3D SkewToVec3D(const Matrix3D *skew);
  * @param v 指向向量的指针
  * @return 向量对应的对角矩阵
  */
-Matrix2D VecToDiag2D(const Vector2D *v);
+Matrix2D DiagVecToMat2D(const Vector2D *v);
 
 /**
  * @brief 将向量转换为对角矩阵(3维)
  * @param v 指向向量的指针
  * @return 向量对应的对角矩阵
  */
-Matrix3D VecToDiag3D(const Vector3D *v);
+Matrix3D DiagVecToMat3D(const Vector3D *v);
 
 /**
  * @brief 将向量转换为对角矩阵(4维)
  * @param v 指向向量的指针
  * @return 向量对应的对角矩阵
  */
-Matrix4D VecToDiag4D(const Vector4D *v);
+Matrix4D DiagVecToMat4D(const Vector4D *v);
 
 /**
  * @brief 将对角矩阵转换为向量(2维)
  * @param v 指向对角的指针
  * @return 对角矩阵对应的向量
  */
-Vector2D DiagToVec2D(const Matrix2D *diag);
+Vector2D DiagMatToVec2D(const Matrix2D *diag);
 
 /**
  * @brief 将对角矩阵转换为向量(3维)
  * @param v 指向对角的指针
  * @return 对角矩阵对应的向量
  */
-Vector3D DiagToVec3D(const Matrix3D *diag);
+Vector3D DiagMatToVec3D(const Matrix3D *diag);
 
 /**
  * @brief 将对角矩阵转换为向量(2维)
  * @param v 指向对角的指针
  * @return 对角矩阵对应的向量
  */
-Vector4D DiagToVec4D(const Matrix4D *diag);
+Vector4D DiagMatToVec4D(const Matrix4D *diag);
 
 
 /*******************************************************************************
@@ -379,21 +379,21 @@ Vector4D DiagToVec4D(const Matrix4D *diag);
  * @param v 指向向量的指针
  * @return 按位取平方后的向量
  */
-Vector2D VecSquare2D(const Vector2D *v);
+Vector2D SquareVec2D(const Vector2D *v);
 
 /**
  * @brief 向量按位取平方(3维)
  * @param v 指向向量的指针
  * @return 按位取平方后的向量
  */
-Vector3D VecSquare3D(const Vector3D *v);
+Vector3D SquareVec3D(const Vector3D *v);
 
 /**
  * @brief 向量按位取平方(4维)
  * @param v 指向向量的指针
  * @return 按位取平方后的向量
  */
-Vector4D VecSquare4D(const Vector4D *v);
+Vector4D SquareVec4D(const Vector4D *v);
 
 
 /*******************************************************************************
@@ -404,21 +404,21 @@ Vector4D VecSquare4D(const Vector4D *v);
  * @param v 指向向量的指针
  * @return 按位取开方后的向量
  */
-Vector2D VecSqrt2D(const Vector2D *v);
+Vector2D SqrtVec2D(const Vector2D *v);
 
 /**
  * @brief 向量按位取开方(3维)
  * @param v 指向向量的指针
  * @return 按位取开方后的向量
  */
-Vector3D VecSqrt3D(const Vector3D *v);
+Vector3D SqrtVec3D(const Vector3D *v);
 
 /**
  * @brief 向量按位取开方(4维)
  * @param v 指向向量的指针
  * @return 按位取开方后的向量
  */
-Vector4D VecSqrt4D(const Vector4D *v);
+Vector4D SqrtVec4D(const Vector4D *v);
 
 
 /*******************************************************************************
@@ -429,21 +429,21 @@ Vector4D VecSqrt4D(const Vector4D *v);
  * @param v 指向向量的指针
  * @return 返回向量的模长
  */
-double VecNorm2D(const Vector2D *v);
+double NormVec2D(const Vector2D *v);
 
 /**
  * @brief 计算向量的模长(3维)
  * @param v 指向向量的指针
  * @return 返回向量的模长
  */
-double VecNorm3D(const Vector3D *v);
+double NormVec3D(const Vector3D *v);
 
 /**
  * @brief 计算向量的模长(4维)
  * @param v 指向向量的指针
  * @return 返回向量的模长
  */
-double VecNorm4D(const Vector4D *v);
+double NormVec4D(const Vector4D *v);
 
 
 #endif // _CMATHUTILS_FIXED_MATRIX_H_
