@@ -127,11 +127,33 @@ Status TransposeMatXD(const MatrixXD *matrix, MatrixXD *result) {
     {
         return CMU_ERROR_MATRIX_OPERATION_INVALID;
     }
+
+    // 临时存储转置的结果
+    double **tempData = (double **)malloc(result->rows * sizeof(double *));
+    for (int i = 0; i < result->rows; i++) {
+        tempData[i] = (double *)malloc(result->cols * sizeof(double));
+    }
+
+    // 进行转置
     for (int i = 0; i < matrix->rows; i++) {
         for (int j = 0; j < matrix->cols; j++) {
-            result->data[j][i] = matrix->data[i][j];
+            tempData[j][i] = matrix->data[i][j];
         }
     }
+
+    // 将转置结果写回到 result 中
+    for (int i = 0; i < result->rows; i++) {
+        for (int j = 0; j < result->cols; j++) {
+            result->data[i][j] = tempData[i][j];
+        }
+    }
+
+    // 释放临时存储
+    for (int i = 0; i < result->rows; i++) {
+        free(tempData[i]);
+    }
+    free(tempData);
+    
     return CMU_STATUS_SUCCESS;
 }
 
@@ -209,9 +231,21 @@ Status DiagVecToMatXD(const VectorXD *vector, MatrixXD *result)
         return CMU_ERROR_MATRIX_OPERATION_INVALID;
     }
     
-    for (int i = 0; i < vector->size; i++) {
-        result->data[i][i] = vector->data[i];
+    for (int i = 0; i < result->rows; i++)
+    {
+        for (int j = 0; j < result->cols; j++)
+        {
+            if (i == j)
+            {
+                result->data[i][j] = vector->data[i];
+            }
+            else
+            {
+                result->data[i][j] = 0.0;
+            }
+        }
     }
+
     return CMU_STATUS_SUCCESS;
 }
 

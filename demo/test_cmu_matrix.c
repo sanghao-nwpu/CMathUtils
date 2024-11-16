@@ -1,6 +1,143 @@
 #include <stdio.h>
 #include "cmu_static_matrix.h"
+#include "cmu_dynamic_matrix.h"
 
+void testMatrixXD()
+{
+    // 创建三维矩阵和向量
+    MatrixXD matA = CreateMatXD(3, 3);
+    MatrixXD matB = CreateMatXD(3, 3);
+    VectorXD vecA = CreateVecXD(3);
+    VectorXD vecB = CreateVecXD(3);
+    VectorXD resultVec = CreateVecXD(3);
+    MatrixXD resultMat = CreateMatXD(3, 3);
+    double traceResult;
+    double dotResult;
+
+    // 填充矩阵A
+    matA.data[0][0] = 1; matA.data[0][1] = 2; matA.data[0][2] = 3;
+    matA.data[1][0] = 4; matA.data[1][1] = 5; matA.data[1][2] = 6;
+    matA.data[2][0] = 7; matA.data[2][1] = 8; matA.data[2][2] = 9;
+
+    // 填充矩阵B
+    matB.data[0][0] = 9; matB.data[0][1] = 8; matB.data[0][2] = 7;
+    matB.data[1][0] = 6; matB.data[1][1] = 5; matB.data[1][2] = 4;
+    matB.data[2][0] = 3; matB.data[2][1] = 2; matB.data[2][2] = 1;
+
+    // 填充向量A
+    vecA.data[0] = 1; vecA.data[1] = 2; vecA.data[2] = 3;
+
+    // 填充向量B
+    vecB.data[0] = 4; vecB.data[1] = 5; vecB.data[2] = 6;
+
+    // 矩阵求和
+    AddMatXD(&matA, &matB, &resultMat);
+    printf("Matrix A + Matrix B:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%lf ", resultMat.data[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 矩阵求差
+    SubMatXD(&matA, &matB, &resultMat);
+    printf("Matrix A - Matrix B:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%lf ", resultMat.data[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 矩阵乘法
+    DotMatXD(&matA, &matB, &resultMat);
+    printf("Matrix A * Matrix B:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%lf ", resultMat.data[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 矩阵数乘
+    DotScalarMatXD(2.0, &matA, &resultMat);
+    printf("Matrix A * 2.0:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%lf ", resultMat.data[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 矩阵转置
+    TransposeMatXD(&matA, &resultMat);
+    printf("Transpose of Matrix A:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%lf ", resultMat.data[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 矩阵原地转置
+    TransposeMatXD(&resultMat, &resultMat);
+    printf("Transpose of Matrix resultMat:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%lf ", resultMat.data[i][j]);
+        }
+        printf("\n");
+    }
+
+
+    // 计算矩阵的迹
+    TraceMatXD(&matA, &traceResult);
+    printf("Trace of Matrix A: %lf\n", traceResult);
+
+    // 矩阵与向量相乘
+    DotMatVecXD(&matA, &vecA, &resultVec);
+    printf("Matrix A * Vector A:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%lf ", resultVec.data[i]);
+    }
+    printf("\n");
+
+    // 向量数乘
+    DotScalarVecXD(3.0, &vecA, &resultVec);
+    printf("Vector A * 3.0:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%lf ", resultVec.data[i]);
+    }
+    printf("\n");
+
+    // 向量点乘
+    DotVecXD(&vecA, &vecB, &dotResult);
+    printf("Dot product of Vector A and Vector B: %lf\n", dotResult);
+
+    // 向量转换为对角矩阵
+    DiagVecToMatXD(&vecA, &resultMat);
+    printf("Diagonal matrix from Vector A:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%lf ", resultMat.data[i][j]);
+        }
+        printf("\n");
+    }
+
+    // 向量模长计算
+    NormVecXD(&vecA, &dotResult);
+    printf("Norm of Vector A: %lf\n", dotResult);
+
+    // 释放动态矩阵和向量
+    FreeMatXD(&matA);
+    FreeMatXD(&matB);
+    FreeVecXD(&vecA);
+    FreeVecXD(&vecB);
+    FreeVecXD(&resultVec);
+    FreeMatXD(&resultMat);
+
+}
 
 void testMatrix2D() 
 {
@@ -70,6 +207,7 @@ void testMatrix2D()
 
 int main() {
     testMatrix2D();
+    testMatrixXD();
 
     printf("Press Enter to continue...");
     while(getchar() != '\n');
