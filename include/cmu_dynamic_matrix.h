@@ -48,6 +48,28 @@ void FreeMatXD(MatrixXD *matrix);
 void FreeVecXD(VectorXD *vector);
 
 /**
+ * @brief 初始化矩阵为单位矩阵
+ * @param matrix 待初始化的矩阵，必须为已分配好内存的方阵
+ * @return Status 
+ */
+Status InitIdentityMatXD(MatrixXD *matrix);
+
+/**
+ * @brief 初始化矩阵为零矩阵
+ * @param matrix 待初始化的矩阵，必须为已分配好内存的方阵
+ * @return Status 
+ */
+Status InitZeroMatXD(MatrixXD *matrix);
+
+/**
+ * @brief 初始化向量为零向量
+ * @param vector 待初始化的向量，必须为已分配好内存的方阵
+ * @return Status 
+ */
+Status InitZeroVecXD(VectorXD *vector);
+
+
+/**
  * @brief 矩阵求和
  * @param A 指向第一个矩阵的指针
  * @param B 指向第二个矩阵的指针
@@ -141,5 +163,23 @@ Status DiagVecToMatXD(const VectorXD *vector, MatrixXD *result);
  * @return 状态码
  */
 Status NormVecXD(const VectorXD *vector, double *result);
+
+/**
+ * @brief 矩阵的LU分解
+ * 
+ * @param matrix 指向要进行LU分解的矩阵的指针
+ * @param L 分解后的下三角矩阵
+ * @param U 分解后的上三角矩阵
+ * @return Status 
+ */
+Status LUDecomposition(const MatrixXD *matrix, MatrixXD* L, MatrixXD* U);
+
+/**
+ * @brief 矩阵求逆
+ * @param matrix 指向要进行求逆的矩阵的指针
+ * @param result 指向结果的指针
+ * @return Status 
+ */
+Status InverseMatXD(const MatrixXD *matrix, MatrixXD *result);
 
 #endif // _CMU_DYNAMIC_MATRIX_H_

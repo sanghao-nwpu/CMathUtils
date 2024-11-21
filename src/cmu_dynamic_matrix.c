@@ -13,6 +13,13 @@ MatrixXD CreateMatXD(int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         matrix.data[i] = (double*)malloc(cols * sizeof(double));
     }
+    for (int i = 0; i < matrix.rows; i++) 
+    {
+        for (int j = 0; j < matrix.cols; j++) 
+        {
+            matrix.data[i][j] = 0.0;
+        }
+    }
     return matrix;
 }
 
@@ -21,6 +28,9 @@ VectorXD CreateVecXD(int size) {
     VectorXD vector;
     vector.size = size;
     vector.data = (double*)malloc(size * sizeof(double));
+    for (int i = 0; i < size; i++) {
+        vector.data[i] = 0.0;
+    }
     return vector;
 }
 
@@ -41,6 +51,49 @@ void FreeVecXD(VectorXD *vector) {
         free(vector->data);
         vector->data = NULL;
     }
+}
+
+Status InitIdentityMatXD(MatrixXD *matrix) 
+{
+    if (matrix->rows != matrix->cols || matrix->rows == 0) {
+        return CMU_ERROR_MATRIX_OPERATION_INVALID;
+    }
+    for (int i = 0; i < matrix->rows; i++) 
+    {
+        for (int j = 0; j < matrix->cols; j++) 
+        {
+            if (i == j) {
+                matrix->data[i][j] = 1.0;
+            } else {
+                matrix->data[i][j] = 0.0;
+            }
+        }
+    }
+    return CMU_STATUS_SUCCESS;
+}
+
+Status InitZeroMatXD(MatrixXD *matrix)
+{
+    if (matrix->rows == 0 || matrix->cols == 0) {
+        return CMU_ERROR_MATRIX_OPERATION_INVALID;
+    }
+    for (int i = 0; i < matrix->rows; i++) {
+        for (int j = 0; j < matrix->cols; j++) {
+            matrix->data[i][j] = 0.0;
+        }
+    }
+    return CMU_STATUS_SUCCESS;
+}
+
+Status InitZeroVecXD(VectorXD *vector)
+{
+    if (vector->size == 0) {
+        return CMU_ERROR_MATRIX_OPERATION_INVALID;
+    }
+    for (int i = 0; i < vector->size; i++) {
+        vector->data[i] = 0.0;
+    }
+    return CMU_STATUS_SUCCESS;
 }
 
 // 矩阵求和，结果存储在 result 中
@@ -262,6 +315,112 @@ Status NormVecXD(const VectorXD *vector, double *result)
     }
     norm = sqrt(norm);
     *result = norm;
+
+    return CMU_STATUS_SUCCESS;
+}
+
+
+Status LUDecomposition(const MatrixXD *matrix, MatrixXD* L, MatrixXD* U) {
+    if (matrix->rows != matrix->cols || matrix->rows == 0 ||
+        L->rows != L->cols || L->rows != matrix->rows ||
+        U->rows != U->cols || U->rows != matrix->rows ||
+        L->rows != matrix->rows || U->cols != matrix->rows)
+    {
+        return CMU_ERROR_MATRIX_OPERATION_INVALID;
+    }
+
+    for (int i = 0; i < matrix->rows; i++) 
+    {
+        for (int j = i; j < matrix->cols; j++) 
+        {
+            U->data[i][j] = matrix->data[i][j];
+            for (int k = 0; k < i; k++) {
+                U->data[i][j] -= L->data[i][k] * U->data[k][j];
+            }
+        }
+        
+        for (int j = i + 1; j < matrix->cols; j++) 
+        {
+            L->data[j][i] = matrix->data[j][i];
+            for (int k = 0; k < i; k++) 
+            {
+                L->data[j][i] -= L->data[j][k] * U->data[k][i];
+            }
+            L->data[j][i] /= U->data[i][i];
+        }
+    }
+    return CMU_STATUS_SUCCESS;
+}
+
+
+Status InverseMatXD(const MatrixXD *matrix, MatrixXD *result) {
+    int n = matrix->rows;
+    Status status;
+    MatrixXD L, U;
+    VectorXD e, x, y;
+    
+    if (matrix->rows != matrix->cols || matrix->rows == 0)
+    {
+        return CMU_ERROR_MATRIX_OPERATION_INVALID;
+    }
+    L = CreateMatXD(n, n);
+    U = CreateMatXD(n, n);
+    e = CreateVecXD(n);
+    x = CreateVecXD(n);
+    y = CreateVecXD(n);
+
+    // 初始化 L 为单位矩阵
+    status = InitIdentityMatXD(&L);
+    if (CMU_STATUS_SUCCESS != status)
+    {
+        FreeMatXD(&L);
+        FreeMatXD(&U);
+        return status;
+    }
+
+    // LU分解
+    status = LUDecomposition(matrix, &L, &U);
+    if (CMU_STATUS_SUCCESS != status)
+    {
+        FreeMatXD(&L);
+        FreeMatXD(&U);
+        return status;
+    }
+
+    // 对每一列进行回代，构造逆矩阵
+    for (int i = 0; i < n; i++) 
+    {
+        // 前向替代解 L * y = e
+        status = InitZeroVecXD(&e);
+        e.data[i] = 1.0;
+        for (int j = 0; j < n; j++) 
+        {
+            y.data[j] = e.data[j];
+            for (int k = 0; k < j; k++) {
+                y.data[j] -= L.data[j][k] * y.data[k];
+            }
+        }
+        
+        // 后向替代解 U * x = y
+        for (int i = n - 1; i >= 0; i--) {
+            x.data[i] = y.data[i];
+            for (int j = i + 1; j < n; j++) {
+                x.data[i] -= U.data[i][j] * x.data[j];
+            }
+            x.data[i] /= U.data[i][i];
+        }
+
+        // 填充逆矩阵
+        for (int j = 0; j < n; j++) {
+            result->data[j][i] = x.data[j];
+        }
+
+        FreeVecXD(&e);
+        FreeVecXD(&x);
+        FreeVecXD(&y);
+    }
+    FreeMatXD(&L);
+    FreeMatXD(&U);
 
     return CMU_STATUS_SUCCESS;
 }
