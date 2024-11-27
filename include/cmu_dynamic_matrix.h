@@ -24,16 +24,18 @@
  * @brief 创建动态矩阵
  * @param rows 矩阵的行数
  * @param cols 矩阵的列数
- * @return 新创建的动态矩阵
+ * @param matrixPtr 指向动态矩阵的指针
+ * @return 状态码
  */
-MatrixXD CreateMatXD(int rows, int cols);
+Status CreateMatXD(const int rows, const int cols, MatrixXD *matrixPtr);
 
 /**
  * @brief 创建动态向量
  * @param size 向量的长度
- * @return 新创建的动态向量
+ * @param vectorPtr 指向动态向量的指针
+ * @return 状态码
  */
-VectorXD CreateVecXD(int size);
+Status CreateVecXD(const int size, VectorXD *vectorPtr);
 
 /**
  * @brief 释放动态矩阵
@@ -163,16 +165,6 @@ Status DiagVecToMatXD(const VectorXD *vector, MatrixXD *result);
  * @return 状态码
  */
 Status NormVecXD(const VectorXD *vector, double *result);
-
-/**
- * @brief 矩阵的LU分解
- * 
- * @param matrix 指向要进行LU分解的矩阵的指针
- * @param L 分解后的下三角矩阵
- * @param U 分解后的上三角矩阵
- * @return Status 
- */
-Status LUDecomposition(const MatrixXD *matrix, MatrixXD* L, MatrixXD* U);
 
 /**
  * @brief 矩阵求逆

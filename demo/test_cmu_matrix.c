@@ -16,19 +16,22 @@ void printMatrixXD(MatrixXD *matrix)
 void testMatrixXD()
 {
     // 创建三维矩阵和向量
-    MatrixXD matA = CreateMatXD(3, 3);
-    MatrixXD matB = CreateMatXD(3, 3);
-    VectorXD vecA = CreateVecXD(3);
-    VectorXD vecB = CreateVecXD(3);
-    VectorXD resultVec = CreateVecXD(3);
-    MatrixXD resultMat = CreateMatXD(3, 3);
+    MatrixXD matA, matB, resultMat;
+    VectorXD vecA, vecB, resultVec;
+    CreateMatXD(3, 3, &matA);
+    CreateMatXD(3, 3, &matB);
+    CreateMatXD(3, 3, &resultMat);
+    CreateVecXD(3, &vecA);
+    CreateVecXD(3, &vecB);
+    CreateVecXD(3, &resultVec);
+    Status status;
     double traceResult;
     double dotResult;
 
     // 填充矩阵A
-    matA.data[0][0] = 1; matA.data[0][1] = 2; matA.data[0][2] = 3;
-    matA.data[1][0] = 4; matA.data[1][1] = 5; matA.data[1][2] = 6;
-    matA.data[2][0] = 7; matA.data[2][1] = 8; matA.data[2][2] = 9;
+    matA.data[0][0] = 1; matA.data[0][1] = 0; matA.data[0][2] = 1;
+    matA.data[1][0] = 0; matA.data[1][1] = 2; matA.data[1][2] = 0;
+    matA.data[2][0] = 1; matA.data[2][1] = 0; matA.data[2][2] = 3;
 
     // 填充矩阵B
     matB.data[0][0] = 9; matB.data[0][1] = 8; matB.data[0][2] = 7;
@@ -106,6 +109,14 @@ void testMatrixXD()
     TraceMatXD(&matA, &traceResult);
     printf("Trace of Matrix A: %lf\n", traceResult);
 
+    // 测试逆矩阵计算
+    status = InverseMatXD(&matA, &resultMat);
+    if (status != CMU_STATUS_SUCCESS) {
+        printf("Matrix Inversion failed with status: %d\n", status);
+    }
+    printf("Inverse Matrix:\n");
+    printMatrixXD(&resultMat);
+
     // 矩阵与向量相乘
     DotMatVecXD(&matA, &vecA, &resultVec);
     printf("Matrix A * Vector A:\n");
@@ -148,53 +159,6 @@ void testMatrixXD()
     FreeVecXD(&resultVec);
     FreeMatXD(&resultMat);
 
-}
-
-void testLUDecompositionAndInverse() {
-    int n = 3;
-    
-    // 创建一个测试矩阵
-    MatrixXD test_matrix = CreateMatXD(n, n);
-    test_matrix.data[0][0] = 2; test_matrix.data[0][1] = 1; test_matrix.data[0][2] = 3;
-    test_matrix.data[1][0] = 1; test_matrix.data[1][1] = 2; test_matrix.data[1][2] = 1;
-    test_matrix.data[2][0] = 3; test_matrix.data[2][1] = 0; test_matrix.data[2][2] = 2;
-
-    // 创建 L 和 U 矩阵
-    MatrixXD L = CreateMatXD(n, n);
-    MatrixXD U = CreateMatXD(n, n);
-
-    // 测试 LU 分解
-    Status status = LUDecomposition(&test_matrix, &L, &U);
-    if (status != CMU_STATUS_SUCCESS) {
-        printf("LU Decomposition failed with status: %d\n", status);
-        return;
-    }
-
-    // 打印 L 和 U 矩阵
-    printf("L Matrix:\n");
-    printMatrixXD(&L);
-    printf("U Matrix:\n");
-    printMatrixXD(&U);
-
-    // 创建逆矩阵存储
-    MatrixXD result = CreateMatXD(n, n);
-
-    // 测试逆矩阵计算
-    status = InverseMatXD(&test_matrix, &result);
-    if (status != CMU_STATUS_SUCCESS) {
-        printf("Matrix Inversion failed with status: %d\n", status);
-        return;
-    }
-
-    // 打印逆矩阵
-    printf("Inverse Matrix:\n");
-    printMatrixXD(&result);
-
-    // 清理内存
-    FreeMatXD(&L);
-    FreeMatXD(&U);
-    FreeMatXD(&result);
-    FreeMatXD(&test_matrix);
 }
 
 void testMatrix2D() 
@@ -265,8 +229,7 @@ void testMatrix2D()
 
 int main() {
     // testMatrix2D();
-    // testMatrixXD();
-    testLUDecompositionAndInverse();
+    testMatrixXD();
     printf("Press Enter to continue...");
     while(getchar() != '\n');
 
