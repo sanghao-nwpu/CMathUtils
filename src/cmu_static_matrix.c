@@ -20,7 +20,7 @@
 
 /*******************************************************************************
  * @subsection 矩阵转置
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 矩阵转置(2维)
  * @param A 指向矩阵的指针
@@ -29,8 +29,10 @@
 Matrix2D TransposeMat2D(const Matrix2D *A)
 {
     Matrix2D result;
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < 2; ++j) {
+    for (int i = 0; i < 2; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
             result.data[i][j] = A->data[j][i];
         }
     }
@@ -45,8 +47,10 @@ Matrix2D TransposeMat2D(const Matrix2D *A)
 Matrix3D TransposeMat3D(const Matrix3D *A)
 {
     Matrix3D result;
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
             result.data[i][j] = A->data[j][i];
         }
     }
@@ -61,28 +65,32 @@ Matrix3D TransposeMat3D(const Matrix3D *A)
 Matrix4D TransposeMat4D(const Matrix4D *A)
 {
     Matrix4D result;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
             result.data[i][j] = A->data[j][i];
         }
     }
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 矩阵与矩阵相加
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 矩阵加法(2维)
  * @param A 指向第一个矩阵的指针
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的和
  */
-Matrix2D AddMat2D(const Matrix2D *A, const Matrix2D *B) {
+Matrix2D AddMat2D(const Matrix2D *A, const Matrix2D *B)
+{
     Matrix2D result;
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < 2; ++j) {
+    for (int i = 0; i < 2; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
             result.data[i][j] = A->data[i][j] + B->data[i][j];
         }
     }
@@ -95,10 +103,13 @@ Matrix2D AddMat2D(const Matrix2D *A, const Matrix2D *B) {
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的和
  */
-Matrix3D AddMat3D(const Matrix3D *A, const Matrix3D *B) {
+Matrix3D AddMat3D(const Matrix3D *A, const Matrix3D *B)
+{
     Matrix3D result;
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
             result.data[i][j] = A->data[i][j] + B->data[i][j];
         }
     }
@@ -111,30 +122,35 @@ Matrix3D AddMat3D(const Matrix3D *A, const Matrix3D *B) {
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的和
  */
-Matrix4D AddMat4D(const Matrix4D *A, const Matrix4D *B) {
+Matrix4D AddMat4D(const Matrix4D *A, const Matrix4D *B)
+{
     Matrix4D result;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
             result.data[i][j] = A->data[i][j] + B->data[i][j];
         }
     }
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 矩阵减法
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 矩阵减法(2维)
  * @param A 指向第一个矩阵的指针
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的差
  */
-Matrix2D SubMat2D(const Matrix2D *A, const Matrix2D *B) {
+Matrix2D SubMat2D(const Matrix2D *A, const Matrix2D *B)
+{
     Matrix2D result;
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < 2; ++j) {
+    for (int i = 0; i < 2; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
             result.data[i][j] = A->data[i][j] - B->data[i][j];
         }
     }
@@ -147,10 +163,13 @@ Matrix2D SubMat2D(const Matrix2D *A, const Matrix2D *B) {
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的差
  */
-Matrix3D SubMat3D(const Matrix3D *A, const Matrix3D *B) {
+Matrix3D SubMat3D(const Matrix3D *A, const Matrix3D *B)
+{
     Matrix3D result;
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
             result.data[i][j] = A->data[i][j] - B->data[i][j];
         }
     }
@@ -163,31 +182,37 @@ Matrix3D SubMat3D(const Matrix3D *A, const Matrix3D *B) {
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的差
  */
-Matrix4D SubMat4D(const Matrix4D *A, const Matrix4D *B) {
+Matrix4D SubMat4D(const Matrix4D *A, const Matrix4D *B)
+{
     Matrix4D result;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
             result.data[i][j] = A->data[i][j] - B->data[i][j];
         }
     }
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 矩阵与矩阵相乘
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 矩阵乘法(2维)
  * @param A 指向第一个矩阵的指针
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的乘积
  */
-Matrix2D DotMat2D(const Matrix2D *A, const Matrix2D *B) {
+Matrix2D DotMat2D(const Matrix2D *A, const Matrix2D *B)
+{
     Matrix2D result = {0};
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < 2; ++j) {
-            for (int k = 0; k < 2; ++k) {
+    for (int i = 0; i < 2; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
+            for (int k = 0; k < 2; ++k)
+            {
                 result.data[i][j] += A->data[i][k] * B->data[k][j];
             }
         }
@@ -201,11 +226,15 @@ Matrix2D DotMat2D(const Matrix2D *A, const Matrix2D *B) {
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的乘积
  */
-Matrix3D DotMat3D(const Matrix3D *A, const Matrix3D *B) {
+Matrix3D DotMat3D(const Matrix3D *A, const Matrix3D *B)
+{
     Matrix3D result = {0};
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            for (int k = 0; k < 3; ++k) {
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            for (int k = 0; k < 3; ++k)
+            {
                 result.data[i][j] += A->data[i][k] * B->data[k][j];
             }
         }
@@ -219,11 +248,15 @@ Matrix3D DotMat3D(const Matrix3D *A, const Matrix3D *B) {
  * @param B 指向第二个矩阵的指针
  * @return 矩阵的乘积
  */
-Matrix4D DotMat4D(const Matrix4D *A, const Matrix4D *B) {
+Matrix4D DotMat4D(const Matrix4D *A, const Matrix4D *B)
+{
     Matrix4D result = {0};
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            for (int k = 0; k < 4; ++k) {
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            for (int k = 0; k < 4; ++k)
+            {
                 result.data[i][j] += A->data[i][k] * B->data[k][j];
             }
         }
@@ -231,20 +264,22 @@ Matrix4D DotMat4D(const Matrix4D *A, const Matrix4D *B) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 标量与矩阵相乘
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 标量与矩阵相乘(2维)
  * @param A 指向矩阵的指针
  * @param scalar 要乘的标量
  * @return 标量和矩阵的乘积
  */
-Matrix2D DotScalarMat2D(const double scalar, const Matrix2D *A) {
+Matrix2D DotScalarMat2D(const double scalar, const Matrix2D *A)
+{
     Matrix2D result;
-    for (int i = 0; i < 2; ++i) {
-        for (int j = 0; j < 2; ++j) {
+    for (int i = 0; i < 2; ++i)
+    {
+        for (int j = 0; j < 2; ++j)
+        {
             result.data[i][j] = scalar * A->data[i][j];
         }
     }
@@ -257,10 +292,13 @@ Matrix2D DotScalarMat2D(const double scalar, const Matrix2D *A) {
  * @param scalar 要乘的标量
  * @return 标量和矩阵的乘积
  */
-Matrix3D DotScalarMat3D(const double scalar, const Matrix3D *A) {
+Matrix3D DotScalarMat3D(const double scalar, const Matrix3D *A)
+{
     Matrix3D result;
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
             result.data[i][j] = scalar * A->data[i][j];
         }
     }
@@ -273,28 +311,31 @@ Matrix3D DotScalarMat3D(const double scalar, const Matrix3D *A) {
  * @param scalar 要乘的标量
  * @return 标量和矩阵的乘积
  */
-Matrix4D DotScalarMat4D(const double scalar, const Matrix4D *A) {
+Matrix4D DotScalarMat4D(const double scalar, const Matrix4D *A)
+{
     Matrix4D result;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
             result.data[i][j] = scalar * A->data[i][j];
         }
     }
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 矩阵与向量相乘
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 矩阵与向量相乘(2维)
  * @param A 指向矩阵的指针
  * @param v 指向向量的指针
  * @return 矩阵和向量的乘积
  */
-Vector2D DotMatVec2D(const Matrix2D *A, const Vector2D *v) {
-    Vector2D result = { 0.0 };
+Vector2D DotMatVec2D(const Matrix2D *A, const Vector2D *v)
+{
+    Vector2D result = {0.0};
     for (int i = 0; i < 2; i++)
     {
         for (int j = 0; j < 2; j++)
@@ -311,8 +352,9 @@ Vector2D DotMatVec2D(const Matrix2D *A, const Vector2D *v) {
  * @param v 指向向量的指针
  * @return 矩阵和向量的乘积
  */
-Vector3D DotMatVec3D(const Matrix3D *A, const Vector3D *v) {
-    Vector3D result = { 0.0 };
+Vector3D DotMatVec3D(const Matrix3D *A, const Vector3D *v)
+{
+    Vector3D result = {0.0};
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
@@ -329,8 +371,9 @@ Vector3D DotMatVec3D(const Matrix3D *A, const Vector3D *v) {
  * @param v 指向向量的指针
  * @return 矩阵和向量的乘积
  */
-Vector4D DotMatVec4D(const Matrix4D *A, const Vector4D *v) {
-    Vector4D result = { 0.0 };
+Vector4D DotMatVec4D(const Matrix4D *A, const Vector4D *v)
+{
+    Vector4D result = {0.0};
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
@@ -343,7 +386,7 @@ Vector4D DotMatVec4D(const Matrix4D *A, const Vector4D *v) {
 
 /*******************************************************************************
  * @subsection 向量加法
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 向量加法(2维)
  * @param u 指向第一个向量的指针
@@ -352,7 +395,7 @@ Vector4D DotMatVec4D(const Matrix4D *A, const Vector4D *v) {
  */
 Vector2D AddVec2D(const Vector2D *u, const Vector2D *v)
 {
-    Vector2D result = { 0 };
+    Vector2D result = {0};
     for (int i = 0; i < 2; i++)
     {
         result.data[i] = u->data[i] + v->data[i];
@@ -368,7 +411,7 @@ Vector2D AddVec2D(const Vector2D *u, const Vector2D *v)
  */
 Vector3D AddVec3D(const Vector3D *u, const Vector3D *v)
 {
-    Vector3D result = { 0 };
+    Vector3D result = {0};
     for (int i = 0; i < 3; i++)
     {
         result.data[i] = u->data[i] + v->data[i];
@@ -384,7 +427,7 @@ Vector3D AddVec3D(const Vector3D *u, const Vector3D *v)
  */
 Vector4D AddVec4D(const Vector4D *u, const Vector4D *v)
 {
-    Vector4D result = { 0 };
+    Vector4D result = {0};
     for (int i = 0; i < 4; i++)
     {
         result.data[i] = u->data[i] + v->data[i];
@@ -394,7 +437,7 @@ Vector4D AddVec4D(const Vector4D *u, const Vector4D *v)
 
 /*******************************************************************************
  * @subsection 向量减法
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 向量减法(2维)
  * @param u 指向第一个向量的指针
@@ -403,7 +446,7 @@ Vector4D AddVec4D(const Vector4D *u, const Vector4D *v)
  */
 Vector2D SubVec2D(const Vector2D *u, const Vector2D *v)
 {
-    Vector2D result = { 0 };
+    Vector2D result = {0};
     for (int i = 0; i < 2; i++)
     {
         result.data[i] = u->data[i] - v->data[i];
@@ -419,7 +462,7 @@ Vector2D SubVec2D(const Vector2D *u, const Vector2D *v)
  */
 Vector3D SubVec3D(const Vector3D *u, const Vector3D *v)
 {
-    Vector3D result = { 0 };
+    Vector3D result = {0};
     for (int i = 0; i < 3; i++)
     {
         result.data[i] = u->data[i] - v->data[i];
@@ -435,7 +478,7 @@ Vector3D SubVec3D(const Vector3D *u, const Vector3D *v)
  */
 Vector4D SubVec4D(const Vector4D *u, const Vector4D *v)
 {
-    Vector4D result = { 0 };
+    Vector4D result = {0};
     for (int i = 0; i < 4; i++)
     {
         result.data[i] = u->data[i] - v->data[i];
@@ -443,18 +486,18 @@ Vector4D SubVec4D(const Vector4D *u, const Vector4D *v)
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 向量数乘
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 向量数乘(2维)
  * @param v 指向向量的指针
  * @param scalar 要乘的标量
  * @return 向量数乘结果
  */
-Vector2D DotScalarVec2D(const double scalar, const Vector2D *v) {
-    Vector2D result = { 0 };
+Vector2D DotScalarVec2D(const double scalar, const Vector2D *v)
+{
+    Vector2D result = {0};
     for (int i = 0; i < 2; i++)
     {
         result.data[i] = scalar * v->data[i];
@@ -468,8 +511,9 @@ Vector2D DotScalarVec2D(const double scalar, const Vector2D *v) {
  * @param scalar 要乘的标量
  * @return 向量数乘结果
  */
-Vector3D DotScalarVec3D(const double scalar, const Vector3D *v) {
-    Vector3D result = { 0 };
+Vector3D DotScalarVec3D(const double scalar, const Vector3D *v)
+{
+    Vector3D result = {0};
     for (int i = 0; i < 3; i++)
     {
         result.data[i] = scalar * v->data[i];
@@ -483,8 +527,9 @@ Vector3D DotScalarVec3D(const double scalar, const Vector3D *v) {
  * @param scalar 要乘的标量
  * @return 向量数乘结果
  */
-Vector4D DotScalarVec4D(const double scalar, const Vector4D *v) {
-    Vector4D result = { 0 };
+Vector4D DotScalarVec4D(const double scalar, const Vector4D *v)
+{
+    Vector4D result = {0};
     for (int i = 0; i < 3; i++)
     {
         result.data[i] = scalar * v->data[i];
@@ -492,17 +537,17 @@ Vector4D DotScalarVec4D(const double scalar, const Vector4D *v) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 向量点乘
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 向量点乘
  * @param u 指向第一个向量的指针
  * @param v 指向第二个向量的指针
  * @return 向量点乘结果
  */
-double DotVec2D(const Vector2D *u, const Vector2D *v) {
+double DotVec2D(const Vector2D *u, const Vector2D *v)
+{
     double result = 0.0;
     for (int i = 0; i < 2; i++)
     {
@@ -517,7 +562,8 @@ double DotVec2D(const Vector2D *u, const Vector2D *v) {
  * @param v 指向第二个向量的指针
  * @return 向量点乘结果
  */
-double DotVec3D(const Vector3D *u, const Vector3D *v) {
+double DotVec3D(const Vector3D *u, const Vector3D *v)
+{
     double result = 0.0;
     for (int i = 0; i < 3; i++)
     {
@@ -532,7 +578,8 @@ double DotVec3D(const Vector3D *u, const Vector3D *v) {
  * @param v 指向第二个向量的指针
  * @return 向量点乘结果
  */
-double DotVec4D(const Vector4D *u, const Vector4D *v) {
+double DotVec4D(const Vector4D *u, const Vector4D *v)
+{
     double result = 0.0;
     for (int i = 0; i < 4; i++)
     {
@@ -541,17 +588,17 @@ double DotVec4D(const Vector4D *u, const Vector4D *v) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 向量叉乘(仅适用于三维向量)
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 向量叉乘(仅适用于3维向量)
  * @param u 指向第一个向量的指针
  * @param v 指向第二个向量的指针
  * @return 向量叉乘结果
  */
-Vector3D CrossVec3D(const Vector3D *u, const Vector3D *v) {
+Vector3D CrossVec3D(const Vector3D *u, const Vector3D *v)
+{
     Vector3D result;
     result.x = u->y * v->z - u->z * v->y; // 计算 x 分量
     result.y = u->z * v->x - u->x * v->z; // 计算 y 分量
@@ -559,17 +606,17 @@ Vector3D CrossVec3D(const Vector3D *u, const Vector3D *v) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 向量和反对称矩阵互转(仅适用于3维向量)
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 将3维向量转换为反对称矩阵
  * @param v 指向向量的指针
  * @return 该向量的反对称矩阵
  */
-Matrix3D SkewVecToMat3D(const Vector3D *v) {
-    Matrix3D skew = { 0.0 };
+Matrix3D SkewVecToMat3D(const Vector3D *v)
+{
+    Matrix3D skew = {0.0};
     skew.data[0][0] = 0;
     skew.data[0][1] = -v->z;
     skew.data[0][2] = v->y;
@@ -587,7 +634,8 @@ Matrix3D SkewVecToMat3D(const Vector3D *v) {
  * @param v 指向反对称矩阵的指针
  * @return 该反对称矩阵对应的向量
  */
-Vector3D SkewMatToVec3D(const Matrix3D *skew) {
+Vector3D SkewMatToVec3D(const Matrix3D *skew)
+{
     Vector3D result;
     result.x = skew->data[2][1];
     result.y = skew->data[0][2];
@@ -595,17 +643,17 @@ Vector3D SkewMatToVec3D(const Matrix3D *skew) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 向量和对角矩阵互转
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 将向量转换为对角矩阵(2维)
  * @param v 指向向量的指针
  * @return 向量对应的对角矩阵
  */
-Matrix2D DiagVecToMat2D(const Vector2D *v) {
-    Matrix2D diag = { 0.0 };  // 初始化为零
+Matrix2D DiagVecToMat2D(const Vector2D *v)
+{
+    Matrix2D diag = {0.0}; // 初始化为零
     for (int i = 0; i < 2; i++)
     {
         diag.data[i][i] = v->data[i];
@@ -618,8 +666,9 @@ Matrix2D DiagVecToMat2D(const Vector2D *v) {
  * @param v 指向向量的指针
  * @return 向量对应的对角矩阵
  */
-Matrix3D DiagVecToMat3D(const Vector3D *v) {
-    Matrix3D diag = { 0.0 };  // 初始化为零
+Matrix3D DiagVecToMat3D(const Vector3D *v)
+{
+    Matrix3D diag = {0.0}; // 初始化为零
     for (int i = 0; i < 3; i++)
     {
         diag.data[i][i] = v->data[i];
@@ -632,8 +681,9 @@ Matrix3D DiagVecToMat3D(const Vector3D *v) {
  * @param v 指向向量的指针
  * @return 向量对应的对角矩阵
  */
-Matrix4D DiagVecToMat4D(const Vector4D *v) {
-    Matrix4D diag = { 0.0 };  // 初始化为零
+Matrix4D DiagVecToMat4D(const Vector4D *v)
+{
+    Matrix4D diag = {0.0}; // 初始化为零
     for (int i = 0; i < 4; i++)
     {
         diag.data[i][i] = v->data[i];
@@ -646,8 +696,9 @@ Matrix4D DiagVecToMat4D(const Vector4D *v) {
  * @param v 指向对角的指针
  * @return 对角矩阵对应的向量
  */
-Vector2D DiagMatToVec2D(const Matrix2D *diag) {
-    Vector2D result = { 0.0 };  // 初始化为零
+Vector2D DiagMatToVec2D(const Matrix2D *diag)
+{
+    Vector2D result = {0.0}; // 初始化为零
     for (int i = 0; i < 2; i++)
     {
         result.data[i] = diag->data[i][i];
@@ -660,8 +711,9 @@ Vector2D DiagMatToVec2D(const Matrix2D *diag) {
  * @param v 指向对角的指针
  * @return 对角矩阵对应的向量
  */
-Vector3D DiagMatToVec3D(const Matrix3D *diag) {
-    Vector3D result = { 0.0 };  // 初始化为零
+Vector3D DiagMatToVec3D(const Matrix3D *diag)
+{
+    Vector3D result = {0.0}; // 初始化为零
     for (int i = 0; i < 3; i++)
     {
         result.data[i] = diag->data[i][i];
@@ -674,8 +726,9 @@ Vector3D DiagMatToVec3D(const Matrix3D *diag) {
  * @param v 指向对角的指针
  * @return 对角矩阵对应的向量
  */
-Vector4D DiagMatToVec4D(const Matrix4D *diag) {
-    Vector4D result = { 0.0 };  // 初始化为零
+Vector4D DiagMatToVec4D(const Matrix4D *diag)
+{
+    Vector4D result = {0.0}; // 初始化为零
     for (int i = 0; i < 4; i++)
     {
         result.data[i] = diag->data[i][i];
@@ -683,17 +736,17 @@ Vector4D DiagMatToVec4D(const Matrix4D *diag) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 向量按位取平方或开方
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 向量按位取平方(2维)
  * @param v 指向向量的指针
  * @return 按位取平方后的向量
  */
-Vector2D SquareVec2D(const Vector2D *v) {
-    Vector2D result = { 0.0 };
+Vector2D SquareVec2D(const Vector2D *v)
+{
+    Vector2D result = {0.0};
     for (int i = 0; i < 2; i++)
     {
         result.data[i] = v->data[i] * v->data[i];
@@ -706,8 +759,9 @@ Vector2D SquareVec2D(const Vector2D *v) {
  * @param v 指向向量的指针
  * @return 按位取平方后的向量
  */
-Vector3D SquareVec3D(const Vector3D *v) {
-    Vector3D result = { 0.0 };
+Vector3D SquareVec3D(const Vector3D *v)
+{
+    Vector3D result = {0.0};
     for (int i = 0; i < 3; i++)
     {
         result.data[i] = v->data[i] * v->data[i];
@@ -720,8 +774,9 @@ Vector3D SquareVec3D(const Vector3D *v) {
  * @param v 指向向量的指针
  * @return 按位取平方后的向量
  */
-Vector4D SquareVec4D(const Vector4D *v) {
-    Vector4D result = { 0.0 };
+Vector4D SquareVec4D(const Vector4D *v)
+{
+    Vector4D result = {0.0};
     for (int i = 0; i < 4; i++)
     {
         result.data[i] = v->data[i] * v->data[i];
@@ -729,17 +784,17 @@ Vector4D SquareVec4D(const Vector4D *v) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 向量按位取开方
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 向量按位取开方(2维)
  * @param v 指向向量的指针
  * @return 按位取开方后的向量
  */
-Vector2D SqrtVec2D(const Vector2D *v) {
-    Vector2D result = { 0.0 };
+Vector2D SqrtVec2D(const Vector2D *v)
+{
+    Vector2D result = {0.0};
     for (int i = 0; i < 2; i++)
     {
         result.data[i] = sqrt(v->data[i]);
@@ -752,8 +807,9 @@ Vector2D SqrtVec2D(const Vector2D *v) {
  * @param v 指向向量的指针
  * @return 按位取开方后的向量
  */
-Vector3D SqrtVec3D(const Vector3D *v) {
-    Vector3D result = { 0.0 };
+Vector3D SqrtVec3D(const Vector3D *v)
+{
+    Vector3D result = {0.0};
     for (int i = 0; i < 3; i++)
     {
         result.data[i] = sqrt(v->data[i]);
@@ -766,8 +822,9 @@ Vector3D SqrtVec3D(const Vector3D *v) {
  * @param v 指向向量的指针
  * @return 按位取开方后的向量
  */
-Vector4D SqrtVec4D(const Vector4D *v) {
-    Vector4D result = { 0.0 };
+Vector4D SqrtVec4D(const Vector4D *v)
+{
+    Vector4D result = {0.0};
     for (int i = 0; i < 4; i++)
     {
         result.data[i] = sqrt(v->data[i]);
@@ -775,17 +832,17 @@ Vector4D SqrtVec4D(const Vector4D *v) {
     return result;
 }
 
-
 /*******************************************************************************
  * @subsection 计算向量模长
-*******************************************************************************/
+ *******************************************************************************/
 
 /**
  * @brief 计算向量的模长(2维)
  * @param v 指向向量的指针
  * @return 返回向量的模长
  */
-double NormVec2D(const Vector2D *v) {
+double NormVec2D(const Vector2D *v)
+{
     double result = 0.0;
     for (int i = 0; i < 2; i++)
     {
@@ -799,7 +856,8 @@ double NormVec2D(const Vector2D *v) {
  * @param v 指向向量的指针
  * @return 返回向量的模长
  */
-double NormVec3D(const Vector3D *v) {
+double NormVec3D(const Vector3D *v)
+{
     double result = 0.0;
     for (int i = 0; i < 3; i++)
     {
@@ -813,7 +871,8 @@ double NormVec3D(const Vector3D *v) {
  * @param v 指向向量的指针
  * @return 返回向量的模长
  */
-double NormVec4D(const Vector4D *v) {
+double NormVec4D(const Vector4D *v)
+{
     double result = 0.0;
     for (int i = 0; i < 4; i++)
     {

@@ -19,48 +19,48 @@
 
 /*******************************************************************************
  * @subsection 相关函数声明
-*******************************************************************************/
+ *******************************************************************************/
 /**
  * @brief 计算地球上某点的重力加速度
  * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  * @return 重力加速度(m/s^2)
  */
-double calculate_gravity(const Vector3D *blh);
+double CalculateGravity(const Vector3D *blh);
 
 /**
  * @brief 计算子午圈半径
  * @param lat 纬度坐标(latitude{rad})
  * @return 子午圈半径(m)
  */
-double calculate_meridian_radius(const double lat);
+double CalculateMeridianRadius(const double lat);
 
 /**
  * @brief 计算卯酉圈半径
  * @param lat 纬度坐标(latitude{rad})
  * @return 卯酉圈半径(m)
  */
-double calculate_prime_vertical_radius(const double lat);
+double CalculatePrimeVerticalRadius(const double lat);
 
 /**
  * @brief 计算东北天系(enu)到地心地固系(ecef)的转换矩阵
  * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
- * @return 转换矩阵 
+ * @return 转换矩阵
  */
-Matrix3D calculate_enu_to_ecef_matrix(const Vector3D *blh);
+Matrix3D CalculateEnuToEcefMatrix(const Vector3D *blh);
 
 /**
  * @brief 地心地固系(ecef)坐标转换为纬经高坐标(blh)
  * @param ecef 地心地固系坐标(x{m}, y{m}, z{m})
  * @return 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  */
-Vector3D ecef_to_blh(const Vector3D *ecef);
+Vector3D EcefToBlh(const Vector3D *ecef);
 
 /**
  * @brief 纬经高坐标(blh)转换为地心地固系(ecef)坐标
  * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  * @return 地心地固系坐标(x{m}, y{m}, z{m})
  */
-Vector3D blh_to_ecef(const Vector3D *blh);
+Vector3D BlhToEcef(const Vector3D *blh);
 
 /**
  * @brief 纬经高坐标(blh)转换为东北天系(enu)坐标
@@ -68,7 +68,7 @@ Vector3D blh_to_ecef(const Vector3D *blh);
  * @param blh 待转换点的纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  * @return 东北天系坐标(east{m}, north{m}, up{m})
  */
-Vector3D blh_to_enu(const Vector3D *ref_blh, const Vector3D *blh);
+Vector3D BlhToEnu(const Vector3D *ref_blh, const Vector3D *blh);
 
 /**
  * @brief 东北天系(enu)坐标转换为纬经高坐标(blh)
@@ -76,7 +76,6 @@ Vector3D blh_to_enu(const Vector3D *ref_blh, const Vector3D *blh);
  * @param enu 待转换点的东北天系坐标(east{m}, north{m}, up{m})
  * @return 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  */
-Vector3D enu_to_blh(const Vector3D *ref_blh, const Vector3D *enu);
-
+Vector3D EnuToBlh(const Vector3D *ref_blh, const Vector3D *enu);
 
 #endif // _CMUCMATHUTILS_EARTH_H_

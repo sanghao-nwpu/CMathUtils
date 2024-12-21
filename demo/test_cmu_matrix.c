@@ -18,6 +18,9 @@ void testMatrixXD()
     // 创建三维矩阵和向量
     MatrixXD matA, matB, resultMat;
     VectorXD vecA, vecB, resultVec;
+    MatrixXD matC, matD;
+    CreateMatXD(4, 4, &matC);
+    CreateMatXD(4, 4, &matD);
     CreateMatXD(3, 3, &matA);
     CreateMatXD(3, 3, &matB);
     CreateMatXD(3, 3, &resultMat);
@@ -37,6 +40,12 @@ void testMatrixXD()
     matB.data[0][0] = 9; matB.data[0][1] = 8; matB.data[0][2] = 7;
     matB.data[1][0] = 6; matB.data[1][1] = 5; matB.data[1][2] = 4;
     matB.data[2][0] = 3; matB.data[2][1] = 2; matB.data[2][2] = 1;
+
+    // 填充矩阵C
+    matC.data[0][0] = 1; matC.data[0][1] = 2; matC.data[0][2] = 0; matC.data[0][3] = 0;
+    matC.data[1][0] = 0; matC.data[1][1] = 2; matC.data[1][2] = 0; matC.data[1][3] = 0;
+    matC.data[2][0] = 0; matC.data[2][1] = 0; matC.data[2][2] = 3; matC.data[2][3] = 0;
+    matC.data[3][0] = 2; matC.data[3][1] = 0; matC.data[3][2] = 0; matC.data[3][3] = 4;
 
     // 填充向量A
     vecA.data[0] = 1; vecA.data[1] = 2; vecA.data[2] = 3;
@@ -116,6 +125,13 @@ void testMatrixXD()
     }
     printf("Inverse Matrix:\n");
     printMatrixXD(&resultMat);
+
+    status = InverseMatXD(&matC, &matD);
+    if (status != CMU_STATUS_SUCCESS) {
+        printf("Matrix Inversion failed with status: %d\n", status);
+    }
+    printf("Inverse Matrix:\n");
+    printMatrixXD(&matD);
 
     // 矩阵与向量相乘
     DotMatVecXD(&matA, &vecA, &resultVec);

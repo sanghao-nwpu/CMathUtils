@@ -22,14 +22,14 @@
  * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  * @return 重力加速度(m/s^2)
  */
-double calculate_gravity(const Vector3D *blh)
+double CalculateGravity(const Vector3D *blh)
 {
     double squre_sin_lat = 0.0;
     double gravity = 0.0;
     squre_sin_lat = sin(blh->x);
     squre_sin_lat *= squre_sin_lat;
-    /** g = 9.7803267715 * (1 + 0.0052790414 * sin^2(lat) + 0.0000232718 * sin^2(lat)) + 
-     * blh.z * (0.0000000043977311 * sin^2(lat) - 0.0000030876910891) 
+    /** g = 9.7803267715 * (1 + 0.0052790414 * sin^2(lat) + 0.0000232718 * sin^2(lat)) +
+     * blh.z * (0.0000000043977311 * sin^2(lat) - 0.0000030876910891)
      * + 0.0000000000007211 * z^2 */
     gravity = 1 + 0.0052790414 * squre_sin_lat;
     gravity += 0.0000232718 * squre_sin_lat * squre_sin_lat;
@@ -44,7 +44,7 @@ double calculate_gravity(const Vector3D *blh)
  * @param lat 纬度坐标(latitude{rad})
  * @return 子午圈半径(m)
  */
-double calculate_meridian_radius(const double lat)
+double CalculateMeridianRadius(const double lat)
 {
     double meridian_radius = 0.0;
     double squre_sin_lat = 0.0;
@@ -59,7 +59,7 @@ double calculate_meridian_radius(const double lat)
  * @param lat 纬度坐标(latitude{rad})
  * @return 卯酉圈半径(m)
  */
-double calculate_prime_vertical_radius(const double lat)
+double CalculatePrimeVerticalRadius(const double lat)
 {
     double prime_vertical_radius = 0.0;
     double sinlat = sin(lat);
@@ -70,11 +70,11 @@ double calculate_prime_vertical_radius(const double lat)
 /**
  * @brief 计算东北天系(enu)到地心地固系(ecef)的转换矩阵
  * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
- * @return 转换矩阵 
+ * @return 转换矩阵
  */
-Matrix3D calculate_enu_to_ecef_matrix(const Vector3D *blh)
+Matrix3D CalculateEnuToEcefMatrix(const Vector3D *blh)
 {
-    Matrix3D enu_to_ecef_matrix = { 0 };
+    Matrix3D enu_to_ecef_matrix = {0};
     double sinlat = sin(blh->x);
     double coslat = cos(blh->x);
     double sinlon = sin(blh->y);
@@ -84,7 +84,7 @@ Matrix3D calculate_enu_to_ecef_matrix(const Vector3D *blh)
     enu_to_ecef_matrix.data[0][1] = -coslon * sinlat;
     enu_to_ecef_matrix.data[0][2] = coslat * coslon;
 
-    enu_to_ecef_matrix.data[1][0] = coslon; 
+    enu_to_ecef_matrix.data[1][0] = coslon;
     enu_to_ecef_matrix.data[1][1] = -sinlon * sinlat;
     enu_to_ecef_matrix.data[1][2] = coslat * sinlon;
 
@@ -100,25 +100,27 @@ Matrix3D calculate_enu_to_ecef_matrix(const Vector3D *blh)
  * @param ecef 地心地固系坐标(x{m}, y{m}, z{m})
  * @return 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  */
-Vector3D ecef_to_blh(const Vector3D *ecef)
+Vector3D EcefToBlh(const Vector3D *ecef)
 {
-    Vector3D blh = { 0 };
+    Vector3D blh = {0};
     double p = sqrt(ecef->x * ecef->x + ecef->y * ecef->y);
     double rn;
     double lat, lon;
     double h = 0.0, h2 = 0.0;
 
     // 初始状态
-    lat = atan2(ecef->z , (p * (1.0 - WGS84_SQURE_E1)));
+    lat = atan2(ecef->z, (p * (1.0 - WGS84_SQURE_E1)));
     lon = atan2(ecef->y, ecef->x);
 
-    while (TRUE) {
+    while (TRUE)
+    {
         h2 = h;
-        rn = calculate_prime_vertical_radius(lat);
+        rn = CalculatePrimeVerticalRadius(lat);
         h = p / cos(lat) - rn;
         // lat = atan(ecef->z / (p * (1.0 - WGS84_SQURE_E1 * rn / (rn + h))));
         lat = atan2(ecef->z + rn * WGS84_SQURE_E1 * sin(lat), p);
-        if (fabs(h - h2) <= 1.0e-4) {
+        if (fabs(h - h2) <= 1.0e-4)
+        {
             break; // 当条件满足时退出循环
         }
     }
@@ -135,9 +137,9 @@ Vector3D ecef_to_blh(const Vector3D *ecef)
  * @param blh 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  * @return 地心地固系坐标(x{m}, y{m}, z{m})
  */
-Vector3D blh_to_ecef(const Vector3D *blh)
+Vector3D BlhToEcef(const Vector3D *blh)
 {
-    Vector3D ecef = { 0 };
+    Vector3D ecef = {0};
     double coslat, sinlat, coslon, sinlon;
     double rnh, rn;
 
@@ -146,7 +148,7 @@ Vector3D blh_to_ecef(const Vector3D *blh)
     coslon = cos(blh->y);
     sinlon = sin(blh->y);
 
-    rn  = calculate_prime_vertical_radius(blh->x);
+    rn = CalculatePrimeVerticalRadius(blh->x);
     rnh = rn + blh->z;
     ecef.x = rnh * coslat * coslon;
     ecef.y = rnh * coslat * sinlon;
@@ -160,18 +162,18 @@ Vector3D blh_to_ecef(const Vector3D *blh)
  * @param blh 待转换点的纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  * @return 东北天系坐标(east{m}, north{m}, up{m})
  */
-Vector3D blh_to_enu(const Vector3D *ref_blh, const Vector3D *blh)
+Vector3D BlhToEnu(const Vector3D *ref_blh, const Vector3D *blh)
 {
-    Vector3D enu = { 0 };
-    Vector3D ref_ecef = { 0 };
-    Vector3D ecef = { 0 };
-    Matrix3D enu_to_ecef_matrix = { 0 };
-    Matrix3D ecef_to_enu_matrix = { 0 };
-    Vector3D delta_ecef = { 0 };
+    Vector3D enu = {0};
+    Vector3D ref_ecef = {0};
+    Vector3D ecef = {0};
+    Matrix3D enu_to_ecef_matrix = {0};
+    Matrix3D ecef_to_enu_matrix = {0};
+    Vector3D delta_ecef = {0};
 
-    ref_ecef = blh_to_ecef(ref_blh);
-    ecef = blh_to_ecef(blh);
-    enu_to_ecef_matrix = calculate_enu_to_ecef_matrix(ref_blh);
+    ref_ecef = BlhToEcef(ref_blh);
+    ecef = BlhToEcef(blh);
+    enu_to_ecef_matrix = CalculateEnuToEcefMatrix(ref_blh);
     ecef_to_enu_matrix = TransposeMat3D(&enu_to_ecef_matrix);
 
     delta_ecef = SubVec3D(&ecef, &ref_ecef);
@@ -186,22 +188,22 @@ Vector3D blh_to_enu(const Vector3D *ref_blh, const Vector3D *blh)
  * @param enu 待转换点的东北天系坐标(east{m}, north{m}, up{m})
  * @return 纬经高坐标(latitude{rad}, longitude{rad}, height{m})
  */
-Vector3D enu_to_blh(const Vector3D *ref_blh, const Vector3D *enu)
+Vector3D EnuToBlh(const Vector3D *ref_blh, const Vector3D *enu)
 {
-    Vector3D blh = { 0 };
-    Vector3D ref_ecef = { 0 };
-    Vector3D ecef = { 0 };
-    Matrix3D enu_to_ecef_matrix = { 0 };
-    Matrix3D ecef_to_enu_matrix = { 0 };
-    Vector3D delta_ecef = { 0 };
+    Vector3D blh = {0};
+    Vector3D ref_ecef = {0};
+    Vector3D ecef = {0};
+    Matrix3D enu_to_ecef_matrix = {0};
+    Matrix3D ecef_to_enu_matrix = {0};
+    Vector3D delta_ecef = {0};
 
-    ref_ecef = blh_to_ecef(ref_blh);
-    enu_to_ecef_matrix = calculate_enu_to_ecef_matrix(ref_blh);
+    ref_ecef = BlhToEcef(ref_blh);
+    enu_to_ecef_matrix = CalculateEnuToEcefMatrix(ref_blh);
 
     delta_ecef = DotMatVec3D(&enu_to_ecef_matrix, enu);
     ecef = AddVec3D(&ref_ecef, &delta_ecef);
 
-    blh = ecef_to_blh(&ecef);
+    blh = EcefToBlh(&ecef);
 
     return blh;
 }

@@ -13,10 +13,8 @@
  * - 1.0.0: 初始版本，添加了基本的向量和矩阵数据结构及运算接口。
  */
 
-
 #ifndef _CMU_DYNAMIC_MATRIX_H_
 #define _CMU_DYNAMIC_MATRIX_H_
-
 
 #include "cmu_defs.h"
 
@@ -52,24 +50,23 @@ void FreeVecXD(VectorXD *vector);
 /**
  * @brief 初始化矩阵为单位矩阵
  * @param matrix 待初始化的矩阵，必须为已分配好内存的方阵
- * @return Status 
+ * @return Status
  */
 Status InitIdentityMatXD(MatrixXD *matrix);
 
 /**
  * @brief 初始化矩阵为零矩阵
  * @param matrix 待初始化的矩阵，必须为已分配好内存的方阵
- * @return Status 
+ * @return Status
  */
 Status InitZeroMatXD(MatrixXD *matrix);
 
 /**
  * @brief 初始化向量为零向量
  * @param vector 待初始化的向量，必须为已分配好内存的方阵
- * @return Status 
+ * @return Status
  */
 Status InitZeroVecXD(VectorXD *vector);
-
 
 /**
  * @brief 矩阵求和
@@ -170,7 +167,7 @@ Status NormVecXD(const VectorXD *vector, double *result);
  * @brief 矩阵求逆
  * @param matrix 指向要进行求逆的矩阵的指针
  * @param result 指向结果的指针
- * @return Status 
+ * @return Status
  */
 Status InverseMatXD(const MatrixXD *matrix, MatrixXD *result);
 
